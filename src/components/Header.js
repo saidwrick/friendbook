@@ -12,14 +12,10 @@ function Header(props) {
             </div>
             <div className="middle">
                 <a href="/">
-                    <span>
-                    <svg role="img"><HomeIcon/></svg>
-                    </span>
+                 <HomeIcon/>
                 </a>
                 <a href="/friends">
-                    <span>
-                        <svg role="img"><FriendsIcon/></svg>
-                    </span>
+                   <FriendsIcon/>
                 </a>
             </div>
             <div className="right">

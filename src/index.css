@@ -1,13 +1,17 @@
+html {
+    min-height: 100%;
+    margin: 0;
+}
 body {
     margin: 0;
     font-family: 'Helvetica', sans-serif;
     --main-blue: rgb(12, 178, 243);
     --dark-grey: #F2F3F5;
-    height: 100vh;
+    min-height: 100%;
 }
 
 #root{
-    height: auto;
+    height: 100%;
 }
 .App {
     height: 100%;
@@ -15,13 +19,15 @@ body {
 
 .nav-bar {
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: white;
     height: 50px;
-    padding: 3px 10px;
+    padding: 3px 15px;
     box-shadow: 0px 2px 3px 0px #e7e6e6;
     gap: 5px;
     box-sizing: border-box;
@@ -111,7 +117,6 @@ body {
     display: flex;
     justify-content: center;
     min-height: 100px;
-    height: auto;
     width: 100%;
     min-width: 100px;
     background-color: white;
@@ -135,28 +140,26 @@ body {
     width: 90%;
     max-height: 80%;
     gap: 10px;
-    padding-bottom: 25px;
 }
-
-
 
 .new-post textarea {
     all: unset;
     width: 90%;
+    min-width: 300px;
     background-color: var(--dark-grey);
-    min-height: 80%;
-    border-radius: 30px;
-    padding: 10px 15px;
+    min-height: 70%;
+    border-radius: 10px;
+    padding: 15px 15px;
     
 }
 
 .new-post-text>button {
     all:unset;
     border: 1px solid var(--main-blue);
-    width: 100px;
+    width: 80px;
     text-align: center;
     padding: 5px 0px;
-    border-radius: 30px;
+    border-radius: 10px;
     margin-left: 10px;
     color: var(--main-blue);
     font-weight: bold;
@@ -171,6 +174,7 @@ body {
 .post {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
     width: 100%;
     min-width: 100px;
     background-color: white;
@@ -179,6 +183,7 @@ body {
     padding: 15px 15px 5px 15px;
     gap: 5px;
     border: 1px solid rgb(216, 216, 216);
+    box-sizing: border-box;
 }
 
 .post-profile {
@@ -229,6 +234,19 @@ body {
     padding-bottom: 15px;
 }
 
+.post-likes, .post-comments {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.post-likes > svg {
+    fill: var(--main-blue);
+    height: 20px;
+    width: 20px;
+}
+
 .post-buttons {
     display: flex;
     justify-content: space-between;
@@ -236,11 +254,17 @@ body {
 }
 .post button {
     all:unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 35px;
-
     width: 54%;
-    text-align: center;
     color: rgb(63, 63, 63);
+    gap: 10px;
+}
+
+.post-buttons svg {
+    fill: rgb(63, 63, 63);
 }
 
 .post button:hover {
@@ -290,11 +314,23 @@ body {
 
 .comment-buttons { 
     display: flex;
+    align-items: center;
     font-size: 13px;
     gap: 10px;
     padding-left: 15px;
 }
 
+.comment-buttons svg {
+    height: 16px;
+    width: 16px;
+    fill: var(--main-blue);
+}
+
+.comment-buttons > p {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
 .comment-buttons > button {
     all:unset;
 }
@@ -319,4 +355,148 @@ body {
     text-indent: 15px;
     padding: 5px;
     margin-left: 15px;
+}
+
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    margin-top: 55px;
+    background-color: #F0F2F5;
+    height: 100%;
+    width: 100%;
+}
+
+.profile-page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    background-color: white;
+    padding: 50px 0px 0px 0px;
+    box-shadow: 0px 2px 3px 0px #e7e6e6;
+}
+
+.profile-page-header-wrapper {
+    display: flex;
+    width: 90%;
+}
+
+.profile-page-header-wrapper>span{
+    display: flex;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgb(89, 189, 97);
+    margin-right: 20px;
+}
+
+.profile-page-details {
+    margin-right: auto;
+    align-self: center;
+}
+
+.profile-page-details > h1 {
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.profile-page-details > p {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(63, 63, 63);
+}
+
+.profile-page-header-wrapper > button {
+    all:unset; 
+    align-self: end;
+    margin-left: auto;
+    background-color: var(--dark-grey);
+    width: 100px;
+    text-align: center;
+    padding: 15px 10px;
+    border-radius: 10px;
+    margin-left: 10px;
+    color: rgb(63, 63, 63);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.profile-nav-bar {
+    margin-top: 25px;
+    padding: 5px 0px;
+    width: 90%;
+    display: flex;
+    border-top: 1px solid rgb(192, 192, 192);
+}
+
+.profile-nav-bar > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 100px;
+    color:rgb(63, 63, 63);
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+.profile-nav-bar > a:hover {
+    background-color: var(--dark-grey);
+}
+
+.profile-nav-bar > a.selected {
+    border-bottom: 4px solid var(--main-blue);
+    color: var(--main-blue);
+}
+
+.profile-posts-content {
+    padding: 25px 0px;
+    gap: 15px;
+    align-self: center;
+    display: grid;
+    max-width: 90%;
+    width: 90%;
+    grid-template-columns: 1fr 2fr;
+}
+
+.profile-intro {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 2px 3px 0px #e7e6e6;
+    padding: 20px;
+    gap: 5px;
+    border: 1px solid rgb(216, 216, 216);
+    box-sizing: border-box;
+    height:fit-content;
+}
+
+.profile-intro > p {
+    margin-top: 15px;
+}
+
+.profile-page h2 {
+    padding: 0px;
+    margin: 0px;
+}
+
+.profile-posts-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    width: 100%;
+    gap: 15px;
+}
+
+.profile-posts-title {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 2px 3px 0px #e7e6e6;
+    padding: 20px;
+    gap: 5px;
+    border: 1px solid rgb(216, 216, 216);
+    box-sizing: border-box;
+    height:fit-content;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Comments from "./Comments.js";
-
+import { ReactComponent as LikeIcon} from '../icons/thumb.svg'
+import { ReactComponent as CommentIcon} from '../icons/comment.svg'
 function Post(props) {
     
     return (
@@ -16,12 +17,12 @@ function Post(props) {
                 HELLO THIS IS A POST!
             </div>
             <div className="post-likes-comments-count">
-                <div className="post-likes">4 likes</div>
+                <div className="post-likes"><LikeIcon/> 4</div>
                 <div className="post-comments">4 comments</div>
             </div>
             <div className="post-buttons">
-                <button>Like</button>
-                <button>Comment</button>
+                <button> <LikeIcon/> Like</button>
+                <button> <CommentIcon/> Comment</button>
             </div>
             <Comments></Comments>
         </div>

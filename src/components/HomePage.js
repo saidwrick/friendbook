@@ -8,8 +8,6 @@ function Home(props) {
             <div className="post-container">
                 <NewPost></NewPost>
                 <Post></Post>
-                <Post></Post>
-                <Post></Post>
             </div>
         </div>
     );

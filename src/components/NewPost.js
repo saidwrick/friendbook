@@ -12,7 +12,7 @@ function NewPost(props) {
             <div className="new-post-text">
                 <textarea type="text" placeholder="What's on your mind name?">
                 </textarea>
-                <button onClick={submitPost}>post</button>
+                <button onClick={submitPost}>Post</button>
             </div>
         </div>
     );
