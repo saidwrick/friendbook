@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Comments from "./Comments.js";
 import { ReactComponent as LikeIcon} from '../icons/thumb.svg'
 import { ReactComponent as CommentIcon} from '../icons/comment.svg'
+
 function Post(props) {
     
     return (
