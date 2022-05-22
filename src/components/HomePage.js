@@ -25,6 +25,7 @@ function Home(props) {
                 console.log("success");
                 console.log(resJson);
                 setPosts(resJson);
+                setLimitedPosts(resJson.slice(0,postLimit));
             } 
             else {
                 console.log(res.status);
@@ -43,12 +44,6 @@ function Home(props) {
     useEffect(() => {
         getPosts();
     }, [])
-
-    useEffect(() => {
-        if (posts.length > 0){
-            setLimitedPosts(posts.slice(0,postLimit));
-        }
-    }, [posts])
 
     useEffect(() => {
         if (posts.length > 0){

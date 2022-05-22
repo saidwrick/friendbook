@@ -42,8 +42,11 @@ function ProfilePosts(props) {
 
     useEffect(() => {
         getProfilePosts();
-
     },[])
+
+    if (!props.profileData){
+        return (null);
+    }
 
     return (
         <div className="profile-posts-content">

@@ -8,7 +8,7 @@ function Comments(props) {
             <Comment></Comment>
             <div className="post-comment">
                 <span></span>
-                <input placeholder="Write a comment..."></input>
+                <input id="test" placeholder="Write a comment..."></input>
             </div>
         </div>
     );
