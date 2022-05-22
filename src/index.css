@@ -19,10 +19,10 @@ body {
 #root{
     min-height: 100vh;
 }
-.App {
-    height: 100vh;
-}
 
+.App {
+    min-height: 100vh;
+}
 .nav-bar {
     position: fixed;
     top: 0;
@@ -65,7 +65,7 @@ body {
 }
 
 .nav-bar-middle a:hover:not(.current){
-    background-color: rgba(128, 128, 128, 0.397);
+    background-color: var(--light-grey);
 }
 
 .nav-bar-middle svg {
@@ -106,6 +106,13 @@ body {
     gap: 8px;
     font-size: 14px;
     margin-right: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.profile:visited {
+    text-decoration: none;
+    color: black;
 }
 
 .profile span {
@@ -119,7 +126,8 @@ body {
     display:flex;
     justify-content: center;
     background-color: #F0F2F5;
-    height: 100%;
+    height:100%;
+    min-height: 100vh;
     width: 100%;
 }
 
@@ -127,11 +135,33 @@ body {
     display: flex;
     flex-direction: column;
     width: 60%;
-    min-width: 650px;
+    min-width: 500px;
+    max-width: 650px;
     padding: 15px;
     margin-top: 50px;
     gap: 15px;
     align-items: center;
+}
+
+.post-container > button {
+    all:unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--main-blue);
+    border: 1px solid var(--main-blue);
+    border-radius: 10px;
+    height: 40px;
+    width: 30%;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.post-container > button:hover {
+    background-color: var(--main-blue);
+    color: white;
 }
 
 .new-post {
@@ -144,37 +174,46 @@ body {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 1px 2px 0px var(--drop-shadow);
-    padding: 25px 15px 5px 15px;
+    padding: 20px 20px 5px 20px;
     gap: 10px;
     border: 1px solid rgb(216, 216, 216);
     box-sizing: border-box;
 }
 
+.new-post-profile {
+    display: flex;
+}
 .new-post span {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background-color: rgb(189, 89, 89);
+    margin-right: 10px;
 }
 
 .new-post-text {
     display: flex;
     flex-direction: column;
     width: 90%;
-    max-height: 100%;
-    gap: 10px;
+    height: 90%;
+    gap: 15px;
+    justify-content: space-between;
+    box-sizing:border-box
 }
 
+.new-post form {
+    height: 70%;
+}
 .new-post textarea {
     all: unset;
-    width: 90%;
+    width: 100%;
     min-width: 300px;
     background-color: var(--light-grey);
-    height: 55%;
+    height: 100%;
     border-radius: 10px;
     padding: 15px 15px;
     color: var(--dark-grey);
-    
+    box-sizing: border-box;
 }
 
 .new-post-text>button {
@@ -185,7 +224,6 @@ body {
     padding: 5px 0px;
     border-radius: 10px;
     margin-left: 5px;
-    margin-bottom: 5px;
     color: var(--main-blue);
     font-weight: bold;
     font-size: 14px;
@@ -228,24 +266,34 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
+    gap: 1px;
 }
 
 .post-details>p {
     margin: 0px;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--dark-grey);
 }
 
 .post-details>a {
-    font-size: 16px;
-    font-weight:500;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 600;
+    color: black;
+    margin: 0px;
+}
+
+.post-details>a:visited {
+    text-decoration: none;
+    color: black;
 }
 
 .post-content {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 300px;
     padding-bottom: 15px;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .post-likes-comments-count {
@@ -335,6 +383,7 @@ body {
 .comment-content > p {
     font-weight: normal;
     line-height: 20px;
+    font-size: 16px;
 }
 
 .comment-buttons { 
@@ -387,6 +436,7 @@ body {
     flex-direction: column;
     margin-top: 55px;
     background-color: #F0F2F5;
+    min-height: 100vh;
     height: 100%;
     width: 100%;
 }
@@ -482,11 +532,13 @@ body {
     align-self: center;
     display: grid;
     max-width: 90%;
-    width: 90%;
+    width: 85%;
     grid-template-columns: minmax(250px, 1fr) 2fr;
 }
 
 .profile-intro {
+    position: sticky;
+    top: 65px;
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -562,7 +614,7 @@ body {
     letter-spacing: -3px;
 }
 
-.login-form{
+.login-form {
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -727,4 +779,154 @@ body {
     font-weight: bold;
     margin-top: 30px;
     margin-bottom: 10px;
+}
+
+.friends-page {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F0F2F5;
+    height: 100%;
+    width: 100%;
+}
+
+.friends-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    background-color: white;
+    box-shadow: 0px 1px 2px 0px var(--drop-shadow);
+    min-width: 720px;
+    width: 80%;
+    box-sizing: border-box;
+    margin-top: 70px;
+}
+
+.friends-container h2 {
+    align-self: start;
+    padding-left: 20px;
+    padding-top: 5px;
+}
+.friends-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows:max-content;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    gap: 5px;
+}
+
+.friend-card {
+    display: flex;
+    align-items: center;
+    height: 120px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.friend-card-pic {
+    height: 80px;
+    width: 80px;
+    background-color: green;
+    border-radius: 10px;
+}
+
+.friend-card > a {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+}
+
+.friend-card > a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.friend-card-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    margin-left: auto;
+    gap: 8px;
+}
+
+.friend-card-buttons > button {
+    all:unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    height: 35px;
+    width: 100px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.friend-card-buttons > .add {
+    background-color: var(--main-blue);
+}
+
+.friend-card-buttons > .delete {
+    background-color: var(--light-grey);
+    color: var(--dark-grey)
+}
+
+.friends-container > button {
+    all:unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--main-blue);
+    border: 1px solid var(--main-blue);
+    border-radius: 10px;
+    height: 40px;
+    width: 30%;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.friends-container > button:hover {
+    background-color: var(--main-blue);
+    color: white;
+}
+
+.friends-nav-bar {
+    display: flex;
+    padding: 5px 0px;
+    width: 100%;
+    padding-left: 50px;
+}
+
+.friends-nav-bar > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: fit-content;
+    min-width: 100px;
+    color:var(--dark-grey);
+    font-weight: bold;
+    border-radius: 3px;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+.friends-nav-bar > a:hover {
+    background-color: var(--light-grey);
+}
+
+.friends-nav-bar > a.selected {
+    border-bottom: 4px solid var(--main-blue);
+    color: var(--main-blue);
 }

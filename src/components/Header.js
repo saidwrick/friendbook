@@ -27,10 +27,10 @@ function Header(props) {
                 </a>
             </div>
             <div className="nav-bar-right">
-                <div className="profile">
+                <a href={props.userInfo._id ? "/profile/"+props.userInfo._id : ""} className="profile">
                     <span></span>
-                    <div>Name</div>
-                </div>
+                    <div>{props.userInfo.firstName ? props.userInfo.firstName : ""}</div>
+                </a>
                 <span>
                     <svg role="img"><NotificationsIcon fill="black"/></svg>
                 </span>

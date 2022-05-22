@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 
 function NewPost(props) {
 
-    const [name, setName] = useState("John");
     const [postContent, setPostContent] = useState("");
 
     async function submitPost (){
         try {
-            let res = await fetch("/posts", {
+            let res = await fetch("/users/" + localStorage.userId + "/posts", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json',
@@ -38,14 +37,17 @@ function NewPost(props) {
     
     return (
         <div className="new-post">
-            <span></span>
+            <div className="new-post-profile">
+                <span></span>
+            </div>
             <div className="new-post-text">
                 <form id="new-post" onSubmit={submitPost}>
-                    <textarea type="text" required placeholder={"What's on your mind, " + name + "?"} 
+                    <textarea type="text" required placeholder={"What's on your mind, " 
+                    + (props.userInfo.firstName ? props.userInfo.firstName : "") + "?"} 
                     value={postContent} onChange={(e)=>setPostContent(e.target.value)}>
                     </textarea>
                 </form>
-                <button form="new-post" onClick={submitPost}>Post</button>
+                <button form="new-post">Post</button>
             </div>
         </div>
     );
