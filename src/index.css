@@ -25,6 +25,7 @@ body {
 }
 .nav-bar {
     position: fixed;
+    z-index: 1;
     top: 0;
     left: 0;
     width: 100%;
@@ -96,9 +97,25 @@ body {
     background-color: rgb(236, 236, 236);
 }
 
+.nav-bar-right span:hover {
+    filter: brightness(95%);
+    cursor: pointer;
+}
+
 .nav-bar-right svg {
     height: 20px;
     width: 20px;
+}
+
+.nav-bar-right a{
+    background-color: white;
+    padding: 3px 10px 3px 5px;
+    border-radius: 30px;
+    margin: 0px;
+}
+
+.nav-bar-right a:hover{
+    filter: brightness(95%);
 }
 
 .profile {
@@ -158,11 +175,12 @@ body {
     font-weight: bold;
     margin-top: 10px;
     margin-bottom: 25px;
+    background-color: var(--light-grey);
+    cursor: pointer;
 }
 
 .post-container > button:hover {
-    background-color: var(--main-blue);
-    color: white;
+    filter: brightness(95%);
 }
 
 .new-post {
@@ -228,6 +246,7 @@ body {
     color: var(--main-blue);
     font-weight: bold;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .new-post-text>button:hover {
@@ -385,8 +404,8 @@ body {
 
 .comments span{
     display: flex;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: rgb(89, 189, 97);
 }
@@ -487,7 +506,7 @@ body {
     max-width: 100%;
     min-width: 650px;
     background-color: white;
-    padding: 50px 0px 0px 0px;
+    padding: 30px 0px 0px 0px;
     box-shadow: 0px 1px 2px 0px var(--drop-shadow);
 }
 
@@ -522,19 +541,18 @@ body {
     color: var(--dark-grey);
 }
 
-.profile-page-header-wrapper > button {
-    all:unset; 
+.profile-page-header-wrapper > .friend-button {
     align-self: end;
     margin-left: auto;
-    background-color: var(--light-grey);
-    width: 100px;
-    text-align: center;
-    padding: 15px 10px;
-    border-radius: 10px;
-    margin-left: 10px;
-    color: var(--dark-grey);
-    font-weight: bold;
-    font-size: 16px;
+}
+
+.profile-page-header-wrapper > .friend-button button {
+    height: 40px;
+    padding: 0px 40px
+}
+
+.profile-page-header-wrapper > .friend-button .expanded {
+    top: 55px;
 }
 
 .profile-nav-bar {
@@ -617,6 +635,11 @@ body {
     max-width: 100%;
     width: 100%;
     gap: 15px;
+}
+
+.profile-posts-container h3 {
+    color: var(--dark-grey);
+    align-self: center;
 }
 
 .profile-posts-title {
@@ -825,7 +848,7 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: #F0F2F5;
-    height: 100%;
+    min-height: 100vh;
     width: 100%;
 }
 
@@ -878,7 +901,7 @@ body {
 
 .friend-card > a {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     color: black;
 }
@@ -897,47 +920,27 @@ body {
     gap: 8px;
 }
 
-.friend-card-buttons > button {
-    all:unset;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    height: 35px;
-    width: 100px;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.friend-card-buttons > .add {
-    background-color: var(--main-blue);
-}
-
-.friend-card-buttons > .delete {
-    background-color: var(--light-grey);
-    color: var(--dark-grey)
-}
-
 .friends-container > button {
     all:unset;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--main-blue);
+    background-color: white;
     border: 1px solid var(--main-blue);
     border-radius: 10px;
     height: 40px;
-    width: 30%;
+    width: 200px;
     font-size: 16px;
     font-weight: bold;
     margin-top: 10px;
     margin-bottom: 25px;
+    cursor: pointer;
+    user-select: none;
 }
 
 .friends-container > button:hover {
-    background-color: var(--main-blue);
-    color: white;
+    filter:brightness(95%);
 }
 
 .friends-nav-bar {
@@ -959,6 +962,8 @@ body {
     border-radius: 3px;
     padding: 0 10px;
     font-size: 16px;
+    cursor: pointer;
+    user-select: none;
 }
 
 .friends-nav-bar > a:hover {
@@ -968,4 +973,69 @@ body {
 .friends-nav-bar > a.selected {
     border-bottom: 4px solid var(--main-blue);
     color: var(--main-blue);
+}
+
+
+.friend-button {
+    position: relative;
+    float: right;
+}
+.friend-button button {
+    all:unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    height: 35px;
+    padding: 0px 15px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.friend-button button:hover{
+    filter: brightness(95%);
+}
+
+.friend-button .respond,
+.friend-button .friends{
+    background-color: var(--main-blue);
+}
+
+.friend-button .not-friends{ 
+    background-color: rgb(230, 248, 255);
+    color: var(--main-blue);
+}
+
+.friend-button .deny,
+.friend-button .requested {
+    background-color: var(--light-grey);
+    color: var(--dark-grey)
+}
+
+.friend-button .expanded {
+    position: absolute;
+    z-index: 1;
+    display:flex;
+    flex-direction: column;
+    width: fit-content;
+    min-width: 200px;
+    top: 45px;
+    right: 0px;
+    box-shadow: 0px 1px 5px 0px rgba(128, 128, 128, 0.699);
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.friend-button .requested-cancel,
+.friend-button .friends-unfriend,
+.friend-button .deny,
+.friend-button .confirm {
+    background-color: white;
+    color: var(--dark-grey);
+    justify-content: start;
+    padding: 0px 25px;
+    white-space: nowrap;
 }

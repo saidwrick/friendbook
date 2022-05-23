@@ -170,8 +170,9 @@ function Post(props) {
                 <span></span>
                 <div className="post-details">
                     <a href={"/profile/" + props.post.user._id}>
-                    {props.post.user.firstName+" "} 
-                    {props.post.user.lastName}</a>
+                        {props.post.user.firstName+" "} 
+                        {props.post.user.lastName}
+                    </a>
                     <p>{postAge}</p>
                 </div>
             </div>
@@ -190,7 +191,7 @@ function Post(props) {
                 {comments.map(e => <Comment key={e._id} comment={e}></Comment>)}
                 <div className="post-comment">
                     <span></span>
-                    <input onKeyDown={postComment} id={props.post._id} value={inputComment} 
+                    <input autoComplete="off" onKeyDown={postComment} id={props.post._id} value={inputComment} 
                     onChange={(e)=> setInputComment(e.target.value)} placeholder="Write a comment...">
                     </input>
                 </div>

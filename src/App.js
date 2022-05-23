@@ -10,7 +10,7 @@ function App(props) {
 
     const [userInfo, setUserInfo] = useState([]);
 
-    async function getUserInfo(){
+    const getUserInfo = async function() {
         try {
             let res = await fetch(`/users/${localStorage.userId}`, {
                 method: "GET",
@@ -25,7 +25,7 @@ function App(props) {
             
             if (res.status === 200) {
                 console.log("success");
-                console.log(resJson);
+                resJson.refresh = getUserInfo;
                 setUserInfo(resJson);
             } 
             else {
@@ -54,7 +54,7 @@ function App(props) {
                 <Route path="/" element={<HomePage userInfo={userInfo} />} />
                 <Route path="*" element={<HomePage userInfo={userInfo} />} />
                 <Route path="profile/:id" element={<Profile userInfo={userInfo} />} />
-                <Route path="/friends" element={<FriendsPage />} />
+                <Route path="/friends" element={<FriendsPage userInfo={userInfo}/>} />
             </Routes>
         </div>
     );

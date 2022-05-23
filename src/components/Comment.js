@@ -14,25 +14,25 @@ function Comment(props) {
 
         if (days >= 1){
             if (days < 2){
-                return "1 day"
+                return "1d"
             }
             else {
-                return Math.round(days) + " days"
+                return Math.round(days) + "d"
             }
         }
         else if (hours >=1){
             if (hours < 2){
-                return  "1 hour"
+                return  "1h"
             }
             else {
-                return Math.round(hours) + " hours"
+                return Math.round(hours) + "h"
             }
         }
         else if (minutes < 2){
             return "1 min"
         }
         else{
-            return Math.round(minutes) + " mins"
+            return Math.round(minutes) + " min"
         }
     }
 

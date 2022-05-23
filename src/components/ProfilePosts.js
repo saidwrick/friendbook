@@ -41,10 +41,10 @@ function ProfilePosts(props) {
     }
 
     useEffect(() => {
-        getProfilePosts();
+            getProfilePosts();
     },[])
 
-    if (!props.profileData){
+    if (!props.profileData || !props.userInfo.friends){
         return (null);
     }
 
@@ -59,7 +59,10 @@ function ProfilePosts(props) {
                 <div className="profile-posts-title">
                     <h2>Posts</h2>
                 </div>
-                {posts.map(e => <Post key={e._id} post={e}></Post>)}
+                {(id == localStorage.userId)? <NewPost userInfo={props.userInfo}></NewPost> : null}
+                {((props.userInfo.friends.indexOf(id) >= 0) || id == localStorage.userId) ?
+                    posts.map(e => <Post key={e._id} post={e}></Post>)
+                    : <h3>Add friend to view posts</h3>}
             </div>
 
         </div>

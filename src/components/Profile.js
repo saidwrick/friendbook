@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import ProfilePosts from "./ProfilePosts";
 import { useParams, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import FriendButtons from "./FriendButtons";
 
 function Profile(props) {
 
     const [profileData, setProfileData] = useState("");
     const {id} = useParams();
     const [friendCount, setFriendCount] = useState(" friends");
-    const [addButton, setAddButton] = useState();
     const navigate = useNavigate();
 
     async function getProfileData (){
@@ -41,24 +41,6 @@ function Profile(props) {
         }
     }
 
-    function checkFriendStatus(){
-        if (id == localStorage.userId){
-            setAddButton("self");
-        }
-        else if (props.userInfo.recievedRequestFriends.indexOf(id) >= 0){
-            setAddButton("waitingResponse");
-        }
-        else if (props.userInfo.sentRequestFriends.indexOf(id) >= 0){
-            setAddButton("requested");
-        }
-        else if (props.userInfo.friends.indexOf(id) >= 0){
-            setAddButton("friends");
-        }
-        else {
-            setAddButton("notFriends");
-        }
-    }
-
     function countFriends (array) {
         if (array==null){
             setFriendCount("0 friends");
@@ -77,13 +59,6 @@ function Profile(props) {
 
     },[])
 
-    useEffect(() => {
-        if (Object.keys(props.userInfo).length > 0){
-            checkFriendStatus();
-        }
-
-    },[props.userInfo])
-
     return (
         <div className="profile-page">
             <div className="profile-page-header">
@@ -93,7 +68,8 @@ function Profile(props) {
                         <h1>{profileData.firstName} {profileData.lastName}</h1>
                         <p>{friendCount}</p>
                     </div>
-                    <button>{addButton}</button>
+
+                    <FriendButtons userInfo={props.userInfo} friendId={id}></FriendButtons>
                 </div>
                 <div className="profile-nav-bar">
                     <a className="selected">Posts</a>

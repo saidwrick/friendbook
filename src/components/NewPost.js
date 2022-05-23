@@ -35,6 +35,10 @@ function NewPost(props) {
         }
     }
     
+    if (!props.userInfo){
+        return null;
+    }
+    
     return (
         <div className="new-post">
             <div className="new-post-profile">
