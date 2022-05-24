@@ -9,7 +9,7 @@ function Post(props) {
     const [userLiked, setUserLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(null);
     const [commentsCount, setCommentsCount] = useState(null);
-    const [expandComments, setExpandComments] = useState(false);
+    const [expandComments, setExpandComments] = useState(true);
     const [comments, setComments] = useState([]);
     const [inputComment, setInputComment] = useState("");
 
@@ -157,17 +157,22 @@ function Post(props) {
             setPostAge(formatTime(props.post.postDate));
             setLikesCount(props.post.likes.length);
             setCommentsCount(props.post.comments.length);
+            getComments();
         }
     }, [props.post])
     
-    if (!props.post){
+    if (!props.post || !props.userInfo){
         return (null)
     }
 
     return (
         <div className="post">
             <div className="post-profile">
-                <span></span>
+                <span>
+                    <a className="profile-pic" href={"/profile/"+props.post.user._id}>
+                        <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_100,w_100/"+props.post.user.profilePicUrl}></img>
+                    </a>
+               </span>
                 <div className="post-details">
                     <a href={"/profile/" + props.post.user._id}>
                         {props.post.user.firstName+" "} 
@@ -190,7 +195,11 @@ function Post(props) {
             {expandComments? <div className="comments">
                 {comments.map(e => <Comment key={e._id} comment={e}></Comment>)}
                 <div className="post-comment">
-                    <span></span>
+                    <span>
+                        <a className="profile-pic" href={"/profile/"+props.userInfo._id}>
+                            <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_100,w_100/"+props.userInfo.profilePicUrl}></img>
+                        </a>
+                    </span>
                     <input autoComplete="off" onKeyDown={postComment} id={props.post._id} value={inputComment} 
                     onChange={(e)=> setInputComment(e.target.value)} placeholder="Write a comment...">
                     </input>

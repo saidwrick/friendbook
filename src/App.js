@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import Profile from "./components/Profile";
-import LoginForm from "./components/LoginForm";
 import FriendsPage from "./components/FriendsPage"
 
 function App(props) {

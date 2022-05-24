@@ -55,7 +55,7 @@ function Home(props) {
         <div className="home">
             <div className="post-container">
                 <NewPost userInfo={props.userInfo}></NewPost>
-                {limitedPosts.map(e => <Post key={e._id} post={e}></Post>)}
+                {limitedPosts.map(e => <Post key={e._id} post={e} userInfo={props.userInfo}></Post>)}
                 <button onClick={incrementPostLimit}>View More</button>
             </div>
         </div>

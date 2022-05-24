@@ -128,15 +128,15 @@ function FriendsPage(props) {
             <div className="friends-container">
                 <h2> Discover</h2>
                 <div className="friends-nav-bar">
-                    <a onClick={handleNavClick} 
+                    <button onClick={handleNavClick} 
                         className={pageSelect=="All" ? "selected" : null}>All
-                    </a>
-                    <a onClick={handleNavClick} 
+                    </button>
+                    <button onClick={handleNavClick} 
                         className={pageSelect=="Friends" ? "selected" : null}>Friends
-                    </a>
-                    <a onClick={handleNavClick} 
+                    </button>
+                    <button onClick={handleNavClick} 
                         className={pageSelect=="Friend Requests" ? "selected" : null}>Friend Requests
-                    </a>
+                    </button>
                 </div>
                 <div className="friends-grid">
                     {users.map((e) => <FriendCard key={e._id} friend={e} 

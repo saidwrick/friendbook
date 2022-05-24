@@ -8,7 +8,11 @@ function FriendCard(props) {
     }
     return (
         <div className="friend-card">
-            <div className="friend-card-pic"></div>
+            <span className="friend-card-pic">
+                <a className="profile-pic" href={"/profile/"+props.friend._id}>
+                    <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_200,w_200/"+props.friend.profilePicUrl}></img>
+                </a>
+            </span>
             <a href ={"/profile/"+props.friend._id}> 
                 {props.friend.firstName + " " + props.friend.lastName} 
             </a>

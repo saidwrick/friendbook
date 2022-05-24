@@ -13,6 +13,11 @@ function Header(props) {
         localStorage.clear();
         window.location.reload();
     }
+
+    if (!props.userInfo || !props.userInfo.profilePicUrl){
+        return null;
+    }
+
     return (
         <div className="nav-bar">
             <div className="nav-bar-left">
@@ -28,7 +33,10 @@ function Header(props) {
             </div>
             <div className="nav-bar-right">
                 <a href={props.userInfo._id ? "/profile/"+props.userInfo._id : ""} className="profile">
-                    <span></span>
+                    <span className="profile-pic">
+                        <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_100,w_100/"+props.userInfo.profilePicUrl}></img>
+                    </span>
+                    
                     <div>{props.userInfo.firstName ? props.userInfo.firstName : ""}</div>
                 </a>
                 <span>

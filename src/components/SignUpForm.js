@@ -8,8 +8,9 @@ function SignUpForm(props) {
     const [birthday, setBirthday] = useState("");
     const [password, setPassword] = useState("");
 
-    async function handleSignUp(e) {
-        e.preventDefault();
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    async function signUp(imgUrl) {
         try {
             let res = await fetch("/signup", {
                 method: "POST",
@@ -22,7 +23,8 @@ function SignUpForm(props) {
                         password: password,
                         firstName: firstName,
                         lastName: lastName,
-                        birthday: birthday
+                        birthday: birthday,
+                        profilePicUrl: (imgUrl ? imgUrl : "friendbook/profiles/kfgsezi8aione4yvwgb3")
                     }
                 ),
             });
@@ -42,6 +44,38 @@ function SignUpForm(props) {
             console.log(err);
         }
     };
+
+    async function uploadImg(){
+        const data = new FormData();
+        data.append("file", selectedFile);
+        data.append("upload_preset", "sibt32fq");
+        data.append("cloud_name", "dzflnyjtm")
+
+        try {
+            let res = await fetch("https://api.cloudinary.com/v1_1/dzflnyjtm/image/upload", {
+                method: "POST",
+                body: data
+            });
+            let resJson = await res.json();
+            console.log("img uploaded");
+            return(resJson.public_id);
+        }
+        catch (err){
+            console.log(err);
+        }
+    }
+
+    async function handleSignUp(e){
+        e.preventDefault();
+        console.log(selectedFile);
+        if (selectedFile){
+            const imgUrl = await uploadImg();
+            signUp(imgUrl);
+        }
+        else {
+            signUp();
+        }
+    }
     
     return (
         <div className="sign-up-overlay">
@@ -57,6 +91,8 @@ function SignUpForm(props) {
                     <input required type="password" placeholder="New password" value={password} onChange={(e)=> setPassword(e.target.value)}></input>
                     <label htmlFor="birthday">Birthday</label>
                     <input required id="birthday" type="date" value={birthday} onChange={(e)=> setBirthday(e.target.value)}></input>
+                    <label htmlFor="file">Upload Profile Picture (optional)</label>
+                    <input id="file" type="file" onChange={(e)=>setSelectedFile(e.target.files[0])}></input>
                 </form>
                 <button form="signup" type="submit">Sign Up</button>
             </div>

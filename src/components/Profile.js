@@ -59,11 +59,17 @@ function Profile(props) {
 
     },[])
 
+    if (!profileData){
+        return null;
+    }
+
     return (
         <div className="profile-page">
             <div className="profile-page-header">
                 <div className="profile-page-header-wrapper">
-                    <span></span>
+                    <span className="profile-pic">
+                        <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_400,w_400/"+profileData.profilePicUrl}></img>
+                    </span>
                     <div className="profile-page-details">
                         <h1>{profileData.firstName} {profileData.lastName}</h1>
                         <p>{friendCount}</p>
@@ -72,8 +78,8 @@ function Profile(props) {
                     <FriendButtons userInfo={props.userInfo} friendId={id}></FriendButtons>
                 </div>
                 <div className="profile-nav-bar">
-                    <a className="selected">Posts</a>
-                    <a>Friends</a>
+                    <button className="selected">Posts</button>
+                    <button>Friends</button>
                 </div>
             </div>
             <ProfilePosts profileData={profileData} userInfo={props.userInfo}></ProfilePosts>

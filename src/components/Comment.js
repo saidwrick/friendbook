@@ -82,13 +82,17 @@ function Comment(props) {
         }
     }, [props.comment])
 
-    if (!props.comment){
+    if (!props.comment || !props.userInfo){
         return null;
     }
     return (
         <div className="comment">
             <div className="comment-profile">
-                <span></span>
+                <span>
+                    <a className="profile-pic" href={"/profile/"+props.comment.user._id}>
+                        <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_100,w_100/"+props.comment.user.profilePicUrl}></img>
+                    </a>
+                </span>
             </div>
             <div className="comment-wrapper">
                 <div className="comment-content">
