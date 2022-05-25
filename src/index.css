@@ -90,6 +90,7 @@ body {
 }
 
 .nav-bar-right span {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,10 +98,13 @@ body {
     height: 40px;
     border-radius: 50%;
     background-color: rgb(236, 236, 236);
+}
+
+.nav-bar-right .profile-pic {
     overflow: hidden;
 }
 
-.nav-bar-right span:hover {
+.nav-bar-right>span:hover {
     filter: brightness(95%);
     cursor: pointer;
 }
@@ -115,10 +119,86 @@ body {
     padding: 3px 10px 3px 5px;
     border-radius: 30px;
     margin: 0px;
+    user-select: none;
 }
 
 .nav-bar-right a:hover{
     filter: brightness(95%);
+}
+
+.nav-bar-right span:hover .settings-menu {
+    filter: none;
+}
+
+.settings-menu,
+.notifications-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    width: 350px;
+    top: 50px;
+    right: 20px;
+    padding: 10px;
+    z-index: 50;
+    box-shadow: 0px 1px 10px 1px rgb(128 128 128 / 50%);
+    gap: 10px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.settings-menu > a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.settings-menu > a:visited{
+    color: black;
+}
+
+.settings-menu > hr {
+    all: unset;
+    border-top: 1px solid var(--line-grey);
+}
+
+.settings-profile span{
+    height: 70px;
+    min-height: 70px;
+    width: 70px;
+    min-width: 70px;
+}
+
+.settings-menu h2{
+    font-size: 18px;
+    margin: 0px;
+}
+
+.settings-menu p{
+    color: var(--dark-grey);
+    font-size: 16px;
+    margin: 0px;
+    margin-top: 5px;
+}
+
+.settings-menu button {
+    all: unset;
+    padding: 15px;
+    color: var(--dark-grey);
+    background-color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.settings-menu button:hover{
+    filter: brightness(95%);
+    cursor: pointer;
 }
 
 .profile {
@@ -220,6 +300,9 @@ body {
     overflow: hidden;
 }
 
+.profile-pic {
+    user-select: none;
+}
 .profile-pic > img{
     height: 100%;
     width: 100%;
@@ -281,13 +364,13 @@ body {
 }
 
 .new-post .close-button{
-    color: var(--dark-grey);
-    border-color: var(--dark-grey);
+    color: #ff6f8e;
+    border-color: #ff6f8e;
     background-color: white;
 }
 
 .new-post .close-button:hover{
-    background-color: var(--dark-grey);
+    background-color: #ff6f8e;
 }
 
 .post {
@@ -615,6 +698,7 @@ body {
     font-weight: bold;
     border-radius: 3px;
     cursor: pointer;
+    user-select: none;
 }
 
 .profile-nav-bar > button:hover {
@@ -624,6 +708,10 @@ body {
 .profile-nav-bar > button.selected {
     border-bottom: 4px solid var(--main-blue);
     color: var(--main-blue);
+}
+
+.profile-nav-bar > button.selected:hover {
+    background-color: white;
 }
 
 .profile-posts-content {
@@ -950,6 +1038,7 @@ body {
     background-color: var(--light-grey);
     border-radius: 10px;
     overflow: hidden;
+    user-select: none;
 }
 
 .friend-card > a {
@@ -1004,6 +1093,7 @@ body {
     padding: 5px 0px;
     width: 100%;
     padding-left: 50px;
+    user-select:none;
 }
 
 .friends-nav-bar > button {
@@ -1031,10 +1121,15 @@ body {
     color: var(--main-blue);
 }
 
+.friends-nav-bar > button.selected:hover {
+    background-color: white;
+}
+
 
 .friend-button {
     position: relative;
     float: right;
+    user-select: none;
 }
 .friend-button button {
     all:unset;
@@ -1080,7 +1175,7 @@ body {
     min-width: 200px;
     top: 45px;
     right: 0px;
-    box-shadow: 0px 1px 5px 0px rgba(128, 128, 128, 0.699);
+    box-shadow: 0px 1px 10px 1px rgb(128 128 128 / 50%);
     background-color: white;
     padding: 5px;
     border-radius: 10px;
