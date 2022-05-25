@@ -55,6 +55,7 @@ body {
     letter-spacing: -1px;
     text-decoration: none;
     user-select: none;
+    margin-right: 20px;
 }
 .nav-bar-middle a {
     display: flex;
@@ -63,6 +64,7 @@ body {
     height: 100%;
     width: 15vw;
     min-width: 50px;
+    max-width: 155px;
     border-radius: 5px;
 }
 
@@ -155,7 +157,7 @@ body {
     flex-direction: column;
     width: 60%;
     min-width: 500px;
-    max-width: 650px;
+    max-width: 680px;
     padding: 15px;
     margin-top: 50px;
     gap: 15px;
@@ -549,6 +551,7 @@ body {
 .profile-page-header-wrapper {
     display: flex;
     width: 90%;
+    max-width: 1200px;
 }
 
 .profile-page-header-wrapper>span{
@@ -596,6 +599,7 @@ body {
     margin-top: 25px;
     padding: 5px 0px;
     width: 90%;
+    max-width: 1200px;
     display: flex;
     border-top: 1px solid var(--line-grey);
 }
@@ -627,9 +631,9 @@ body {
     gap: 15px;
     align-self: center;
     display: grid;
-    max-width: 90%;
+    max-width: 1130px;
     width: 85%;
-    grid-template-columns: minmax(250px, 1fr) 2fr;
+    grid-template-columns: minmax(250px, 450px) minmax(450px, 680px);
 }
 
 .profile-intro {
@@ -645,6 +649,7 @@ body {
     border: 1px solid rgb(216, 216, 216);
     box-sizing: border-box;
     height:fit-content;
+    box-sizing: border-box;
 }
 
 .profile-intro  svg {
@@ -671,7 +676,7 @@ body {
 .profile-posts-container {
     display: flex;
     flex-direction: column;
-    max-width: 100%;
+    max-width: 680px;
     width: 100%;
     gap: 15px;
 }
@@ -904,6 +909,7 @@ body {
     background-color: white;
     box-shadow: 0px 1px 2px 0px var(--drop-shadow);
     min-width: 720px;
+    max-width: 1200px;
     width: 80%;
     box-sizing: border-box;
     margin-top: 70px;

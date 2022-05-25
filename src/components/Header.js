@@ -19,34 +19,36 @@ function Header(props) {
     }
 
     return (
-        <div className="nav-bar">
-            <div className="nav-bar-left">
-                <a href="/" className="logo">friendbook</a>
-            </div>
-            <div className="nav-bar-middle">
-                <a className = {(currentPage["*"].split('/')[0] == "") ? "current" : null} href="/">
-                 <HomeIcon/>
-                </a>
-                <a className = {(currentPage["*"].split('/')[0] == "friends") ? "current" : null} href="/friends">
-                   <FriendsIcon/>
-                </a>
-            </div>
-            <div className="nav-bar-right">
-                <a href={props.userInfo._id ? "/profile/"+props.userInfo._id : ""} className="profile">
-                    <span className="profile-pic">
-                        <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_100,w_100/"+props.userInfo.profilePicUrl}></img>
+        <div className="nav-bar-wrapper">
+            <div className="nav-bar">
+                <div className="nav-bar-left">
+                    <a href="/" className="logo">friendbook</a>
+                </div>
+                <div className="nav-bar-middle">
+                    <a className = {(currentPage["*"].split('/')[0] == "") ? "current" : null} href="/">
+                    <HomeIcon/>
+                    </a>
+                    <a className = {(currentPage["*"].split('/')[0] == "friends") ? "current" : null} href="/friends">
+                    <FriendsIcon/>
+                    </a>
+                </div>
+                <div className="nav-bar-right">
+                    <a href={props.userInfo._id ? "/profile/"+props.userInfo._id : ""} className="profile">
+                        <span className="profile-pic">
+                            <img src={"https://res.cloudinary.com/dzflnyjtm/image/upload/c_fill,h_100,w_100/"+props.userInfo.profilePicUrl}></img>
+                        </span>
+                        
+                        <div>{props.userInfo.firstName ? props.userInfo.firstName : ""}</div>
+                    </a>
+                    <span>
+                        <svg role="img"><NotificationsIcon fill="black"/></svg>
                     </span>
-                    
-                    <div>{props.userInfo.firstName ? props.userInfo.firstName : ""}</div>
-                </a>
-                <span>
-                    <svg role="img"><NotificationsIcon fill="black"/></svg>
-                </span>
-                <span onClick={logOut}>
-                    <svg role="img"><SettingsIcon/></svg>
-                </span>
+                    <span onClick={logOut}>
+                        <svg role="img"><SettingsIcon/></svg>
+                    </span>
+                </div>
+            
             </div>
-        
         </div>
     );
 }

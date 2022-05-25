@@ -82,7 +82,7 @@ function Comment(props) {
         }
     }, [props.comment])
 
-    if (!props.comment || !props.userInfo){
+    if (!props.comment){
         return null;
     }
     return (
