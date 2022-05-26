@@ -9,7 +9,7 @@ function FriendButtons(props) {
     async function handleButtonClick(e, action) {
         e.preventDefault();
         try {
-            let res = await fetch("http://localhost:3001/users/" + props.friendId + "/friend-actions", {
+            let res = await fetch("/users/" + props.friendId + "/friend-actions", {
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json',
