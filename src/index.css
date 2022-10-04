@@ -402,6 +402,32 @@ body {
     overflow: hidden;
 }
 
+.post-profile .post-self{
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
+    width: 50px;
+    margin-left: auto;
+}
+
+.post-profile .post-self button{
+    cursor: pointer;
+}
+
+.post-profile .post-self button:hover{
+    background-color: white;
+}
+
+.post-self svg {
+    height: 50px;
+    width: 50px;
+    fill: #d8d8d8;
+}
+
+.post-self svg:hover {
+    fill: #ff3b65;
+}
+
 .post-details{
     display: flex;
     flex-direction: column;
@@ -445,10 +471,14 @@ body {
     font-weight: normal;
     color: var(--dark-grey);
     padding-bottom: 15px;
+}
 
+.post-likes:hover, .post-comments:hover {
+    text-decoration: underline;
 }
 
 .post-likes, .post-comments {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -485,7 +515,102 @@ body {
     60% {
         transform: scale(1.3) rotate(-20deg);
     }
-  }
+}
+
+.likes-mod-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(238, 238, 238, 0.637);
+    overflow: hidden;
+}
+
+.likes-mod {
+    height: 500px;
+    min-width: 600px;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 2px 0px var(--drop-shadow);
+    border: 1px solid rgb(216, 216, 216);
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    gap: 20px;
+}
+
+.likes-mod-header{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--main-blue);
+    user-select: none;
+    padding-bottom: 10px;
+}
+
+.likes-mod .likes-mod-close{
+    all: unset ;
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--dark-grey);
+}
+
+.likes-mod .likes-mod-close:hover{
+    background-color: white;
+}
+
+.likes-mod-user{
+    display: flex;
+    align-items: center;
+}
+
+.likes-mod .likes-mod-user span{
+    display: flex;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--light-grey);
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.likes-mod-user .name{
+    color: var(--dark-grey);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.likes-mod-user .name:hover{
+    color: var(--dark-grey);
+    text-decoration: underline;
+}
+
+.likes-mod img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.likes-mod .friend-button{
+    margin-left: auto;
+    height: 40px;
+}
+
+.likes-mod .friend-button button{
+    height: 100%;
+}
 
 .post button,
 .post label{
@@ -529,6 +654,35 @@ body {
     border-radius: 50%;
     background-color: var(--light-grey);
     overflow: hidden;
+}
+
+.comment-main {
+    display: flex;
+    gap: 5px;
+}
+
+.comment-self {
+    display: flex;
+    align-items: center;
+}
+
+.comment-self button{
+    width: 100%;
+    cursor: pointer;
+}
+
+.comment-self button:hover{
+    background-color: white;
+}
+
+.comment-self svg {
+    height: 30px;
+    width: 20px;
+    fill: #d8d8d8;
+}
+
+.comment-self svg:hover {
+    fill: #ff3b65;
 }
 
 .comment-content {
@@ -591,6 +745,23 @@ body {
 .comment-buttons > button:hover {
     text-decoration: underline;
     background-color: white;
+}
+
+.comment-likes{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.comment-likes:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.comment-likes > .likes-hover{
+    top: 25px;
+    left: 5px;
 }
 
 .post-comment { 
@@ -1146,13 +1317,15 @@ body {
     white-space: nowrap;
 }
 
-.friend-button button:hover{
-    filter: brightness(95%);
-}
-
 .friend-button .respond,
 .friend-button .friends{
     background-color: var(--main-blue);
+}
+
+.friend-button .respond:hover,
+.friend-button .friends:hover{
+    background-color: var(--main-blue);
+    filter: brightness(95%);
 }
 
 .friend-button .not-friends{ 
@@ -1160,10 +1333,23 @@ body {
     color: var(--main-blue);
 }
 
+.friend-button .not-friends:hover{
+    background-color: rgb(230, 248, 255);
+    color: var(--main-blue);
+    filter: brightness(95%);
+}
+
 .friend-button .deny,
 .friend-button .requested {
     background-color: var(--light-grey);
-    color: var(--dark-grey)
+    color: var(--dark-grey);
+}
+
+.friend-button .deny:hover,
+.friend-button .requested:hover{
+    background-color: var(--light-grey);
+    color: var(--dark-grey);
+    filter: brightness(95%);
 }
 
 .friend-button .expanded {
@@ -1173,12 +1359,18 @@ body {
     flex-direction: column;
     width: fit-content;
     min-width: 200px;
+    min-height: 30px;
+    justify-content: center;
     top: 45px;
     right: 0px;
     box-shadow: 0px 1px 10px 1px rgb(128 128 128 / 50%);
     background-color: white;
     padding: 5px;
     border-radius: 10px;
+}
+
+.friend-button .expanded button{
+    min-height: 30px;
 }
 
 .friend-button .requested-cancel,
@@ -1190,4 +1382,25 @@ body {
     justify-content: start;
     padding: 0px 25px;
     white-space: nowrap;
+}
+
+.error-page {
+    padding: 25px;
+}
+
+.likes-hover {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 10px;
+    position: absolute;
+    z-index: 150;
+    top: 25px;
+    left: 35px;
+    width: fit-content;
+    color: white;
+    white-space: nowrap;
+    padding: 10px;
+    font-size: 14px;
+    gap: 5px;
 }

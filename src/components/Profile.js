@@ -33,11 +33,12 @@ function Profile(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
-                navigate("/");
+                navigate("/404", { state: {err: resJson}});
             }
         } 
         catch (err) {
             console.log(err);
+            navigate("/404", { state: {err: err}});
         }
     }
 

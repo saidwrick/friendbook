@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { ReactComponent as LikeIcon} from "../icons/thumb.svg";
+import { ReactComponent as LikeIcon } from "../icons/thumb.svg";
+import { ReactComponent as TrashIcon } from "../icons/trash.svg";
+import LikesMod from './LikesMod.js';
+
 function Comment(props) {
 
     const [likesCount, setLikesCount] = useState(null);
     const [commentAge, setCommentAge] = useState(null);
     const [userLiked, setUserLiked] = useState(false);
+    const [likes, setLikes] = useState([]);
+    const [likesHover, setLikesHover] = useState(false);
+    const [likesClick, setLikesClick] = useState(false);
+    const [deleted, setDeleted] = useState(false);
 
     function formatTime (date){
         const seconds = (Date.now() - new Date(date))/1000;
@@ -74,6 +81,80 @@ function Comment(props) {
         }
     }
 
+    async function getLikes() {
+        try {
+            let res = await fetch("/comments/" + props.comment._id + "/likes", {
+                method: "GET",
+                headers: {
+                    'Content-type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.authToken,
+                },
+            });
+            
+            let resJson = await res.json();
+            
+            if (res.status === 200) {
+                console.log(resJson);
+                setLikes(resJson.likes);
+            } 
+
+            else {
+                console.log(res.status);
+                console.log(resJson);
+            }
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function deleteComment() {
+        try {
+            let res = await fetch("/comments/" + props.comment._id, {
+                method: "DELETE",
+                headers: {
+                    'Content-type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.authToken,
+                },
+            });
+            
+            let resJson = await res.json();
+            
+            if (res.status === 200) {
+                console.log(resJson);
+                setDeleted(true);
+            } 
+
+            else {
+                console.log(res.status);
+                console.log(resJson);
+            }
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    function likesHoverToggle(){
+        if (likesHover) {
+            setLikesHover(false);
+        }
+        else {
+            getLikes()
+            setLikesHover(true);
+        }
+    }
+
+    function likesClickToggle(){
+        if (likesClick) {
+            setLikesClick(false);
+        }
+        else{
+            getLikes()
+            setLikesClick(true);
+        }
+    }
+
     useEffect(() => {
         if (props.comment){
             setCommentAge(formatTime(props.comment.commentDate));
@@ -82,7 +163,7 @@ function Comment(props) {
         }
     }, [props.comment])
 
-    if (!props.comment){
+    if (!props.comment || deleted){
         return null;
     }
     return (
@@ -95,12 +176,35 @@ function Comment(props) {
                 </span>
             </div>
             <div className="comment-wrapper">
-                <div className="comment-content">
-                    <a href={"/profile/"+props.comment.user._id}>{props.comment.user.firstName + " "} {props.comment.user.lastName}</a>
-                    <p>{props.comment.content}</p>
+                <div className="comment-main">
+                    <div className="comment-content">
+                        <a href={"/profile/"+props.comment.user._id}>{props.comment.user.firstName + " "} {props.comment.user.lastName}</a>
+                        <p>{props.comment.content}</p>
+                    </div>
+                    {props.comment.user._id == props.userInfo._id ? 
+                        <div className="comment-self">
+                            <button onClick={deleteComment}><TrashIcon/></button> 
+                        </div>
+                    : null}
                 </div>
                 <div className="comment-buttons">
-                    {likesCount>0 ? <button><LikeIcon/>{likesCount}</button> : null}
+                    {likesCount>0 ? 
+                        <div className="comment-likes"
+                            onMouseEnter={likesHoverToggle}
+                            onMouseLeave={likesHoverToggle}
+                            onClick={likesClickToggle}> 
+                                <LikeIcon/>{likesCount}
+                                {likesHover ? 
+                                    <div className="likes-hover">
+                                        {likes.slice(0,20).map(e => <div key={e._id}>{e.firstName + " " + e.lastName}</div>)}
+                                        {likes.length > 20 ? <div>and {likes.length-20} more...</div> : null}
+                                    </div> 
+                                : null}
+                        </div> 
+                    : null}
+                    {likesClick ? 
+                    <LikesMod userInfo={props.userInfo} likes={likes} closeMod={likesClickToggle}></LikesMod>
+                    : null}
                     <button className={userLiked ? "liked" : null} onClick={handleLikeButton}>Like</button>
                     <p>{commentAge}</p>
                 </div>

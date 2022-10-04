@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Comment from "./Comment.js";
 import { ReactComponent as LikeIcon} from '../icons/thumb.svg'
 import { ReactComponent as CommentIcon} from '../icons/comment.svg'
+import { ReactComponent as TrashIcon } from '../icons/trash.svg';
+import LikesMod from './LikesMod.js';
 
 function Post(props) {
     
@@ -12,6 +14,10 @@ function Post(props) {
     const [expandComments, setExpandComments] = useState(true);
     const [comments, setComments] = useState([]);
     const [inputComment, setInputComment] = useState("");
+    const [likes, setLikes] = useState([]);
+    const [likesHover, setLikesHover] = useState(false);
+    const [likesClick, setLikesClick] = useState(false);
+    const [deleted, setDeleted] = useState(false);
 
     function formatTime (date){
         const seconds = (Date.now() - new Date(date))/1000;
@@ -151,6 +157,80 @@ function Post(props) {
         }
     }
 
+    async function getLikes() {
+        try {
+            let res = await fetch("/posts/" + props.post._id + "/likes", {
+                method: "GET",
+                headers: {
+                    'Content-type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.authToken,
+                },
+            });
+            
+            let resJson = await res.json();
+            
+            if (res.status === 200) {
+                console.log(resJson);
+                setLikes(resJson.likes);
+            } 
+
+            else {
+                console.log(res.status);
+                console.log(resJson);
+            }
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function deletePost() {
+        try {
+            let res = await fetch("/posts/" + props.post._id, {
+                method: "DELETE",
+                headers: {
+                    'Content-type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.authToken,
+                },
+            });
+            
+            let resJson = await res.json();
+            
+            if (res.status === 200) {
+                console.log(resJson);
+                setDeleted(true);
+            } 
+
+            else {
+                console.log(res.status);
+                console.log(resJson);
+            }
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    function likesHoverToggle(){
+        if (likesHover) {
+            setLikesHover(false);
+        }
+        else {
+            getLikes()
+            setLikesHover(true);
+        }
+    }
+
+    function likesClickToggle(){
+        if (likesClick) {
+            setLikesClick(false);
+        }
+        else{
+            getLikes()
+            setLikesClick(true);
+        }
+    }
+
     useEffect(() => {
         if (props.post){
             checkUserLikesPost();
@@ -161,7 +241,7 @@ function Post(props) {
         }
     }, [props.post])
     
-    if (!props.post || !props.userInfo){
+    if (!props.post || !props.userInfo || deleted){
         return (null)
     }
 
@@ -180,12 +260,33 @@ function Post(props) {
                     </a>
                     <p>{postAge}</p>
                 </div>
+                {props.post.user._id == props.userInfo._id ? 
+                        <div className="post-self">
+                            <button onClick={deletePost}><TrashIcon/></button> 
+                        </div>
+                : null}
             </div>
             <div className="post-content">
                 {props.post.content}
             </div>
             <div className="post-likes-comments-count">
-                {likesCount > 0 ? <div className="post-likes"><LikeIcon/> {likesCount}</div> : <div></div>}
+                {likesCount > 0 ? 
+                    <div className="post-likes" 
+                        onMouseEnter={likesHoverToggle} 
+                        onMouseLeave={likesHoverToggle}
+                        onClick={likesClickToggle}>
+                            <LikeIcon/> {likesCount}
+                            {likesHover ? 
+                                <div className="likes-hover">
+                                    {likes.slice(0,20).map(e => <div key={e._id}>{e.firstName + " " + e.lastName}</div>)}
+                                    {likes.length > 20 ? <div>and {likes.length-20} more...</div> : null}
+                                </div> 
+                            : null}
+                    </div> 
+                : <div></div>}
+                {likesClick ? 
+                    <LikesMod userInfo={props.userInfo} likes={likes} closeMod={likesClickToggle}></LikesMod>
+                : null}
                 <div className="post-comments" onClick={handleCommentsClick}>{commentsCount}{(commentsCount == 1) ? " comment" : " comments"}</div>
             </div>
             <div className="post-buttons">
@@ -193,7 +294,7 @@ function Post(props) {
                 <label onClick={expandComments? null : handleCommentsClick} htmlFor={props.post._id}> <CommentIcon/> Comment</label>
             </div>
             {expandComments? <div className="comments">
-                {comments.map(e => <Comment key={e._id} comment={e}></Comment>)}
+                {comments.map(e => <Comment key={e._id} comment={e} userInfo={props.userInfo}></Comment>)}
                 <div className="post-comment">
                     <span>
                         <a className="profile-pic" href={"/profile/"+props.userInfo._id}>
