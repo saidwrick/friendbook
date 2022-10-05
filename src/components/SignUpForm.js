@@ -23,7 +23,7 @@ function SignUpForm(props) {
                         password: password,
                         firstName: firstName,
                         lastName: lastName,
-                        birthday: birthday,
+                        birthday: birthday + "T00:00",
                         profilePicUrl: (imgUrl ? imgUrl : "friendbook/profiles/kfgsezi8aione4yvwgb3")
                     }
                 ),

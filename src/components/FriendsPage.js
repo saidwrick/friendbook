@@ -6,10 +6,18 @@ function FriendsPage(props) {
     const [cardLimit, setCardLimit] = useState(25);
     const [users, setUsers] = useState([]);
     const [pageSelect, setPageSelect] = useState("All");
+    const [search, setSearch] = useState("")
     
     async function getAllUsers() {
+
+        let query = ""
+
+        if (search != ""){
+            query += "?search=" + search;
+        }
+
         try {
-            let res = await fetch("/users", {
+            let res = await fetch("users" + query, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -37,8 +45,15 @@ function FriendsPage(props) {
     }
 
     async function getFriends() {
+        
+        let query = ""
+
+        if (search != ""){
+            query = "?search=" + search
+        }
+
         try {
-            let res = await fetch("/users", {
+            let res = await fetch("/users" + query, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -66,8 +81,15 @@ function FriendsPage(props) {
     }
 
     async function getFriendRequests() {
+
+        let query = ""
+
+        if (search != ""){
+            query += "?search=" + search;
+        }
+
         try {
-            let res = await fetch("/users", {
+            let res = await fetch("users" + query, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -119,6 +141,24 @@ function FriendsPage(props) {
         setCardLimit(prevLimit + 5);
     }
 
+    //auto search after delay
+    useEffect(() => {
+        const delayDebounceFn = setTimeout(async () => {
+            if (pageSelect == "All"){
+                getAllUsers();
+            }
+            else if (pageSelect == "Friends"){
+                getFriends();
+            }
+            else if (pageSelect== "Friend Requests"){
+                getFriendRequests();
+            }
+        }, 300)
+    
+        return () => clearTimeout(delayDebounceFn)
+
+    }, [search]);
+
     if (!props.userInfo){
         return (null);
     }
@@ -137,6 +177,7 @@ function FriendsPage(props) {
                     <button onClick={handleNavClick} 
                         className={pageSelect=="Friend Requests" ? "selected" : null}>Friend Requests
                     </button>
+                    <input placeholder="Search users" value={search} onChange={e=>setSearch(e.target.value)}></input>
                 </div>
                 <div className="friends-grid">
                     {users.map((e) => <FriendCard key={e._id} friend={e} 

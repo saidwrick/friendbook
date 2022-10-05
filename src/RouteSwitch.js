@@ -7,10 +7,12 @@ import jwtDecode from "jwt-decode";
 
 const RouteSwitch = () => {
 
-
+//if token is expired or uId/token missing
     useEffect(() => {
-        if (false) //if token is expired or uId/token missing
+        if (!(localStorage.userId && localStorage.authToken) || 
+        Date.now() >= jwtDecode(localStorage.authToken).exp*1000){ 
             localStorage.clear();
+        }
     }, [])
 
     return (

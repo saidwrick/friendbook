@@ -302,6 +302,7 @@ body {
 
 .profile-pic {
     user-select: none;
+    cursor: pointer;
 }
 .profile-pic > img{
     height: 100%;
@@ -1261,10 +1262,10 @@ body {
 
 .friends-nav-bar {
     display: flex;
-    padding: 5px 0px;
+    padding: 5px 25px;
     width: 100%;
-    padding-left: 50px;
     user-select:none;
+    box-sizing: border-box;
 }
 
 .friends-nav-bar > button {
@@ -1294,6 +1295,17 @@ body {
 
 .friends-nav-bar > button.selected:hover {
     background-color: white;
+}
+
+.friends-nav-bar input{
+    all:unset;
+    margin-left: auto;
+    background-color: var(--light-grey);
+    padding: 5px;
+    border-radius: 50px;
+    padding-left: 25px;
+    width: 40%;
+    color: var(--dark-grey);
 }
 
 
@@ -1340,13 +1352,15 @@ body {
 }
 
 .friend-button .deny,
-.friend-button .requested {
+.friend-button .requested,
+.friend-button .edit-profile {
     background-color: var(--light-grey);
     color: var(--dark-grey);
 }
 
 .friend-button .deny:hover,
-.friend-button .requested:hover{
+.friend-button .requested:hover,
+.friend-button .edit-profile:hover{
     background-color: var(--light-grey);
     color: var(--dark-grey);
     filter: brightness(95%);
@@ -1382,6 +1396,155 @@ body {
     justify-content: start;
     padding: 0px 25px;
     white-space: nowrap;
+}
+
+.expand-profile-pic-bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 0, 0);
+    overflow: hidden;
+    padding: 0px 100px;
+    box-sizing: border-box;
+}
+
+.expand-profile-pic-bg button{
+    all: unset ;
+    position: fixed;
+    top: 10px;
+    left: 45px;
+    z-index: 101;
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 45px;
+    font-weight: normal;
+    color: white;
+}
+
+.expand-profile-pic-bg button:hover{
+    filter: brightness(95%);
+}
+
+.expand-profile-pic-bg img{
+    height: 100%;
+    object-fit: contain;
+}
+
+.edit-mod-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(238, 238, 238, 0.637);
+    overflow: hidden;
+}
+
+.edit-mod-container {
+    height: 450px;
+    min-width: 500px;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 2px 0px var(--drop-shadow);
+    border: 1px solid rgb(216, 216, 216);
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    gap: 20px;
+}
+
+.edit-mod-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-mod-header .edit-mod-close-button{
+    all: unset ;
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--dark-grey);
+    align-self: flex-start;
+}
+
+.edit-mod-container h1{
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: var(--main-blue);
+}
+
+.edit-mod-container > form {
+    width: 100%;
+    align-self: center;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.edit-mod-container > form > label {
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: -2px;
+    color: var(--dark-grey);
+}
+
+.edit-mod-container > form > input:not([type=file]) {
+    all:unset;
+    width: 80%;
+    border: 1px solid var(--line-grey);
+    border-radius: 10px;
+    height: 40px;
+    width: 100%;
+    text-indent: 15px;
+    color: var(--dark-grey);
+}
+
+.edit-mod-container > form > input[type=date],
+.edit-mod-container > form > input[type=file] {
+    display: flex;
+    align-items: center;
+    text-indent: 8px;
+    font-size: 14px;
+    color: var(--dark-grey);
+}
+
+.edit-mod-container button{
+    all:unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    height: 35px;
+    padding: 0px 15px;
+    width: 100px;
+    align-self: center;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: var(--main-blue);
+    margin-top: 25px;
+    height: 35px;
+}
+
+.edit-mod-container button:hover{
+    filter: brightness(95%);
 }
 
 .error-page {
