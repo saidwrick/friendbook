@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FriendButtons from './FriendButtons'
+import { ReactComponent as CloseIcon} from '../icons/close.svg'
 
 function LikesMod(props) {
 
@@ -12,7 +13,7 @@ function LikesMod(props) {
             <div className="likes-mod" onClick={e=>e.stopPropagation()}>
                 <div className="likes-mod-header">
                     Likes
-                    <button className="likes-mod-close" onClick={props.closeMod}>x</button>
+                    <button className="likes-mod-close" onClick={props.closeMod}><CloseIcon/></button>
                 </div>
                 {props.likes.map((e) => 
                     <div className="likes-mod-user" key={e._id}>

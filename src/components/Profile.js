@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProfilePosts from "./ProfilePosts";
 import { useParams, useNavigate } from "react-router-dom";
 import FriendButtons from "./FriendButtons";
+import { ReactComponent as CloseIcon} from '../icons/close.svg'
 
 function Profile(props) {
 
@@ -178,7 +179,7 @@ function Profile(props) {
                     </span>
                     {expandPic ? 
                         <div className="expand-profile-pic-bg" onClick={toggleExpandPic} onKeyDown={console.log("hello")}>
-                            <button className="close-pic" onClick={toggleExpandPic}>x</button>
+                            <button className="close-pic" onClick={toggleExpandPic}><CloseIcon/></button>
                             <img onClick={e=>e.stopPropagation()} src={"https://res.cloudinary.com/dzflnyjtm/image/upload/"+profileData.profilePicUrl}></img>
                         </div>
                     : null}
@@ -198,7 +199,7 @@ function Profile(props) {
                             <div className="edit-mod-container" onClick={e=>e.stopPropagation()}>
                                 <div className="edit-mod-header">
                                     <h1>Edit Profile</h1>
-                                    <button className="edit-mod-close-button" onClick={toggleExpandEdit}>x</button>
+                                    <button className="edit-mod-close-button" onClick={toggleExpandEdit}><CloseIcon/></button>
                                 </div>
                                 <form id="edit-profile">
                                     <input required placeholder="First name" value={firstName} onChange={(e)=> setFirstName(e.target.value)} ></input>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import FriendCard from "./FriendCard";
+import { ReactComponent as SearchIcon} from '../icons/search.svg'
 
 function FriendsPage(props) {
 
-    const [cardLimit, setCardLimit] = useState(25);
+    const [cardLimit, setCardLimit] = useState(10);
     const [users, setUsers] = useState([]);
     const [pageSelect, setPageSelect] = useState("All");
     const [search, setSearch] = useState("")
@@ -132,14 +133,15 @@ function FriendsPage(props) {
         }
     }
 
+    function incrementCardLimit() {
+        setCardLimit(cardLimit + 10);
+    }
+
     useEffect(() => {
         populateUsers();
     }, [pageSelect])
 
-    function incrementCardLimit() {
-        const prevLimit = cardLimit;
-        setCardLimit(prevLimit + 5);
-    }
+
 
     //auto search after delay
     useEffect(() => {
@@ -160,7 +162,7 @@ function FriendsPage(props) {
     }, [search]);
 
     if (!props.userInfo){
-        return (null);
+        return null;
     }
 
     return (
@@ -177,10 +179,13 @@ function FriendsPage(props) {
                     <button onClick={handleNavClick} 
                         className={pageSelect=="Friend Requests" ? "selected" : null}>Friend Requests
                     </button>
-                    <input placeholder="Search users" value={search} onChange={e=>setSearch(e.target.value)}></input>
+                    <div className="search">
+                        <SearchIcon/>
+                        <input placeholder="Search users" value={search} onChange={e=>setSearch(e.target.value)}></input>
+                    </div>
                 </div>
                 <div className="friends-grid">
-                    {users.map((e) => <FriendCard key={e._id} friend={e} 
+                    {users.slice(0,cardLimit).map((e) => <FriendCard key={e._id} friend={e} 
                     userInfo={props.userInfo}></FriendCard>)}
                 </div>
             <button onClick={incrementCardLimit}>View More</button>

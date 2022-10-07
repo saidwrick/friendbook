@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { ReactComponent as CloseIcon} from '../icons/close.svg'
 
 function SignUpForm(props) {
 
@@ -78,11 +79,11 @@ function SignUpForm(props) {
     }
     
     return (
-        <div className="sign-up-overlay">
-            <div className="sign-up-container">
+        <div className="sign-up-overlay" onClick={props.toggle}>
+            <div className="sign-up-container" onClick={e=>e.stopPropagation()}>
                 <div className="sign-up-header">
                     Sign up
-                    <button onClick={props.toggle}>X</button>
+                    <button onClick={props.toggle}><CloseIcon/></button>
                 </div>
                 <form id="signup" onSubmit={handleSignUp}>
                     <input required placeholder="First name" value={firstName} onChange={(e)=> setFirstName(e.target.value)} ></input>

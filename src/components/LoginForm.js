@@ -53,6 +53,40 @@ function LoginForm(props) {
         }
     }
 
+    async function demoLogin(e) {
+        e.preventDefault();
+        try {
+            let res = await fetch("/login", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {
+                        email: "john@john.com",
+                        password: "john",
+                    }
+                ),
+            });
+            
+            let resJson = await res.json();
+            
+            if (res.status === 200) {
+                console.log("success");
+                localStorage.authToken = resJson.token;
+                localStorage.userId = resJson.userId;
+                window.location.reload();
+            } 
+            else {
+                console.log(res.status);
+                console.log(resJson);
+            }
+        } 
+        catch (err) {
+            console.log(err);
+        }
+    }
+
     if (localStorage.authToken) {
         return <Navigate to="/" replace />;
     }
@@ -71,7 +105,7 @@ function LoginForm(props) {
                             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                             <button>Log In</button>
                         </form>
-                        
+                        <button className="demo" onClick={demoLogin}>Demo</button>
                         <button onClick={toggleSignUpForm}> Create new account</button>
                     </div>
                 </div>
