@@ -61,8 +61,10 @@ function ProfilePosts(props) {
                 </div>
                 {(id == localStorage.userId)? <NewPost userInfo={props.userInfo}></NewPost> : null}
                 {((props.userInfo.friends.indexOf(id) >= 0) || id == localStorage.userId) ?
-                    posts.map(e => <Post key={e._id} post={e} userInfo={props.userInfo}></Post>)
-                    : <h3>Add friend to view posts</h3>}
+                    posts.length > 0 ? 
+                        posts.map(e => <Post key={e._id} post={e} userInfo={props.userInfo}></Post>)
+                    : <h3>User has no posts</h3>
+                : <h3>Add friend to view posts</h3>}
             </div>
 
         </div>

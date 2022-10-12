@@ -5,7 +5,7 @@ import Post from "./Post";
 function Home(props) {
     
     const [posts, setPosts] = useState([]);
-    const [postLimit, setPostLimit] = useState(5);
+    const [postLimit, setPostLimit] = useState(2);
     const [limitedPosts, setLimitedPosts] = useState([]);
 
     async function getPosts() {
@@ -38,25 +38,20 @@ function Home(props) {
     }
 
     function incrementPostLimit() {
-        const prevLimit = postLimit;
-        setPostLimit(prevLimit + 5);
+        setPostLimit(postLimit + 5);
     }
     useEffect(() => {
         getPosts();
     }, [])
 
-    useEffect(() => {
-        if (posts.length > 0){
-            setLimitedPosts(posts.slice(0,postLimit));
-        }
-    }, [postLimit])
-
     return (
         <div className="home">
             <div className="post-container">
                 <NewPost userInfo={props.userInfo}></NewPost>
-                {limitedPosts.map(e => <Post key={e._id} post={e} userInfo={props.userInfo}></Post>)}
-                <button onClick={incrementPostLimit}>View More</button>
+                {posts.slice(0,postLimit).map(e => <Post key={e._id} post={e} userInfo={props.userInfo}></Post>)}
+                {posts.length > postLimit ?
+                    <button onClick={incrementPostLimit}>View More</button>
+                : null}
             </div>
         </div>
     );

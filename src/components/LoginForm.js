@@ -105,8 +105,9 @@ function LoginForm(props) {
                             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                             <button>Log In</button>
                         </form>
-                        <button className="demo" onClick={demoLogin}>Demo</button>
                         <button onClick={toggleSignUpForm}> Create new account</button>
+                        <button className="demo" onClick={demoLogin}>Demo</button>
+
                     </div>
                 </div>
             </div>

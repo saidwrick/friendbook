@@ -4,7 +4,7 @@ import { ReactComponent as SearchIcon} from '../icons/search.svg'
 
 function FriendsPage(props) {
 
-    const [cardLimit, setCardLimit] = useState(10);
+    const [cardLimit, setCardLimit] = useState(5);
     const [users, setUsers] = useState([]);
     const [pageSelect, setPageSelect] = useState("All");
     const [search, setSearch] = useState("")
@@ -122,6 +122,7 @@ function FriendsPage(props) {
     }
 
     function populateUsers(){
+        setCardLimit(5);
         if (pageSelect == "All"){
             getAllUsers();
         }
@@ -146,6 +147,7 @@ function FriendsPage(props) {
     //auto search after delay
     useEffect(() => {
         const delayDebounceFn = setTimeout(async () => {
+            setCardLimit(5);
             if (pageSelect == "All"){
                 getAllUsers();
             }
@@ -185,10 +187,14 @@ function FriendsPage(props) {
                     </div>
                 </div>
                 <div className="friends-grid">
-                    {users.slice(0,cardLimit).map((e) => <FriendCard key={e._id} friend={e} 
-                    userInfo={props.userInfo}></FriendCard>)}
+                    {users.length > 0 ? 
+                        users.slice(0,cardLimit).map((e) => <FriendCard key={e._id} friend={e} 
+                        userInfo={props.userInfo}></FriendCard>)
+                    : <h3>No users</h3>}
                 </div>
-            <button onClick={incrementCardLimit}>View More</button>
+            {users.length > cardLimit ? 
+                <button onClick={incrementCardLimit}>View More</button>
+            : null}
             </div>
         </div>
     );

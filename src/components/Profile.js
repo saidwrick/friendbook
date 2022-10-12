@@ -180,7 +180,9 @@ function Profile(props) {
                     {expandPic ? 
                         <div className="expand-profile-pic-bg" onClick={toggleExpandPic} onKeyDown={console.log("hello")}>
                             <button className="close-pic" onClick={toggleExpandPic}><CloseIcon/></button>
-                            <img onClick={e=>e.stopPropagation()} src={"https://res.cloudinary.com/dzflnyjtm/image/upload/"+profileData.profilePicUrl}></img>
+                            <div className="img-container">
+                                <img onClick={e=>e.stopPropagation()} src={"https://res.cloudinary.com/dzflnyjtm/image/upload/"+profileData.profilePicUrl}></img>
+                            </div>
                         </div>
                     : null}
                     <div className="profile-page-details">
