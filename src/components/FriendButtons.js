@@ -51,7 +51,7 @@ function FriendButtons(props) {
     if (props.userInfo._id == props.friendId){
         return null
     }
-    console.log(props.userInfo);
+
     //Recieved Request
     if (props.userInfo.recievedRequestFriends.indexOf(props.friendId) >= 0){
         return (

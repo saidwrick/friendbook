@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 import NewPost from "./NewPost";
 import Post from "./Post";
 
@@ -7,6 +8,8 @@ function Home(props) {
     const [posts, setPosts] = useState([]);
     const [postLimit, setPostLimit] = useState(2);
     const [limitedPosts, setLimitedPosts] = useState([]);
+
+    const navigate = useNavigate();
 
     async function getPosts() {
         try {
@@ -30,10 +33,12 @@ function Home(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
+                throw res;
             }
         } 
         catch (err) {
             console.log(err);
+            navigate("/404", { state: {err: "Internal server error"}});
         }
     }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as CloseIcon} from '../icons/close.svg'
+import {useNavigate} from "react-router-dom";
 
 function SignUpForm(props) {
 
@@ -8,10 +9,14 @@ function SignUpForm(props) {
     const [lastName, setLastName] = useState("");
     const [birthday, setBirthday] = useState("");
     const [password, setPassword] = useState("");
-
     const [selectedFile, setSelectedFile] = useState(null);
+    const [expandError, setExpandError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const navigate = useNavigate();
 
     async function signUp(imgUrl) {
+        setExpandError(false);
         try {
             let res = await fetch("/signup", {
                 method: "POST",
@@ -35,14 +40,20 @@ function SignUpForm(props) {
             if (res.status === 200) {
                 props.signUpSuccess();
                 console.log("User signed up successfully");
-            } 
+            }
+            else if (res.status === 400) {
+                setErrorMsg(resJson);
+                setExpandError(true);
+            }
             else {
                 console.log(res.status);
                 console.log(resJson);
+                throw "Internal server error";
             }
         } 
         catch (err) {
             console.log(err);
+            navigate("/404", { state: {err: err}});
         }
     };
 
@@ -61,8 +72,9 @@ function SignUpForm(props) {
             console.log("img uploaded");
             return(resJson.public_id);
         }
-        catch (err){
+        catch (err) {
             console.log(err);
+            navigate("/404", { state: {err: err}});
         }
     }
 
@@ -85,10 +97,13 @@ function SignUpForm(props) {
                     Sign up
                     <button onClick={props.toggle}><CloseIcon/></button>
                 </div>
+                {expandError? 
+                    <p className="error">{errorMsg}</p>
+                :null}
                 <form id="signup" onSubmit={handleSignUp}>
                     <input required placeholder="First name" value={firstName} onChange={(e)=> setFirstName(e.target.value)} ></input>
                     <input required placeholder="Last name" value={lastName} onChange={(e)=> setLastName(e.target.value)}></input>
-                    <input required placeholder="Email" value={email} onChange={(e)=> setEmail(e.target.value)}></input>
+                    <input required placeholder="Email" type="email" value={email} onChange={(e)=> setEmail(e.target.value)}></input>
                     <input required type="password" placeholder="New password" value={password} onChange={(e)=> setPassword(e.target.value)}></input>
                     <label htmlFor="birthday">Birthday</label>
                     <input required id="birthday" type="date" value={birthday} onChange={(e)=> setBirthday(e.target.value)}></input>

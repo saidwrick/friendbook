@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import SignUpForm from "./SignUpForm";
 
 function LoginForm(props) {
@@ -8,10 +8,14 @@ function LoginForm(props) {
     const [signUpSuccessMsg, setSignUpSuccessMsg] = useState(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [expandError, setExpandError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const navigate = useNavigate();
 
     function signUpSuccess() {
         setOpenSignUpForm(false);
-        setSignUpSuccessMsg("*Sign up success! Please login.");
+        setSignUpSuccessMsg("Sign up success! Please login.");
     }
 
     function toggleSignUpForm(e) {
@@ -21,6 +25,7 @@ function LoginForm(props) {
 
     async function handleLogin(e) {
         e.preventDefault();
+        setExpandError(false);
         try {
             let res = await fetch("/login", {
                 method: "POST",
@@ -43,13 +48,19 @@ function LoginForm(props) {
                 localStorage.userId = resJson.userId;
                 window.location.reload();
             } 
+            else if (res.status === 401){
+                console.log(resJson.message)
+                setErrorMsg(resJson.message)
+                setExpandError(true);
+            }
             else {
                 console.log(res.status);
-                console.log(resJson);
+                throw "Internal server error"
             }
         } 
         catch (err) {
             console.log(err);
+            navigate("/404", { state: {err: err}});
         }
     }
 
@@ -80,10 +91,12 @@ function LoginForm(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
+                throw "Internal server error"
             }
         } 
         catch (err) {
             console.log(err);
+            navigate("/404", { state: {err: err}});
         }
     }
 
@@ -99,10 +112,15 @@ function LoginForm(props) {
                 </div>
                 <div className="login-page-right">
                     <div className="login-form">
-                        {signUpSuccessMsg ? <p className="success">{signUpSuccessMsg}</p> : null}
+                        {expandError ? 
+                            <p className="error">{errorMsg}</p> 
+                        : null}
+                        {signUpSuccessMsg ? 
+                            <p className="success">{signUpSuccessMsg}</p> 
+                        : null}
                         <form onSubmit={handleLogin}>
-                            <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                            <input required placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                            <input required type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                             <button>Log In</button>
                         </form>
                         <button onClick={toggleSignUpForm}> Create new account</button>

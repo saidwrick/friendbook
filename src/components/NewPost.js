@@ -6,6 +6,7 @@ function NewPost(props) {
     const [expanded, setExpanded] = useState(false);
 
     async function submitPost (e){
+        e.preventDefault();
         try {
             let res = await fetch("/users/" + localStorage.userId + "/posts", {
                 method: "POST",

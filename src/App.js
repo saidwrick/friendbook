@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route, useNavigate} from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import Profile from "./components/Profile";
 import FriendsPage from "./components/FriendsPage"
+import ErrorPage from "./components/ErrorPage"
 
 function App(props) {
 
     const [userInfo, setUserInfo] = useState([]);
+
+    const navigate = useNavigate();
 
     const getUserInfo = async function() {
         try {
@@ -30,10 +33,12 @@ function App(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
+                throw res
             }
         } 
         catch (err) {
             console.log(err);
+            navigate("/404", { state: {err: "Internal server error"}});
         }
     }
 
@@ -51,7 +56,7 @@ function App(props) {
             <Header userInfo={userInfo}></Header>
             <Routes>
                 <Route path="/" element={<HomePage userInfo={userInfo} />} />
-                <Route path="*" element={<HomePage userInfo={userInfo} />} />
+                <Route path="*" element={<ErrorPage err={"404 Page not found"} />} />
                 <Route path="profile/:id" element={<Profile userInfo={userInfo} />} />
                 <Route path="/friends" element={<FriendsPage userInfo={userInfo}/>} />
             </Routes>

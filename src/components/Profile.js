@@ -15,6 +15,8 @@ function Profile(props) {
     const [lastName, setLastName] = useState(null);
     const [birthday, setBirthday] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [expandErrorMsg, setExpandErrorMsg] = useState(false);
     
     const navigate = useNavigate();
 
@@ -43,10 +45,14 @@ function Profile(props) {
                 setProfileData(resJson);
                 countFriends(resJson.friends);
             } 
+            else if (res.status === 404){
+                throw "404 Page not found"
+            }
+
             else {
                 console.log(res.status);
                 console.log(resJson);
-                navigate("/404", { state: {err: resJson}});
+                throw "Internal server error"
             }
         } 
         catch (err) {
@@ -104,11 +110,13 @@ function Profile(props) {
         }
         catch (err){
             console.log(err);
+            setExpandErrorMsg(true);
+            setErrorMsg(err)
         }
     }
 
     async function updateProfile(imgUrl) {
-
+        setExpandErrorMsg(false);
         let formBody = {                         
             firstName: firstName,
             lastName: lastName,
@@ -138,10 +146,14 @@ function Profile(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
+                setExpandErrorMsg(true);
+                setErrorMsg(resJson)
             }
         } 
         catch (err) {
             console.log(err);
+            setExpandErrorMsg(true);
+            setErrorMsg(err)
         }
     };
 
@@ -203,7 +215,10 @@ function Profile(props) {
                                     <h1>Edit Profile</h1>
                                     <button className="edit-mod-close-button" onClick={toggleExpandEdit}><CloseIcon/></button>
                                 </div>
-                                <form id="edit-profile">
+                                <form id="edit-profile" onSubmit={handleUpdate}>
+                                    {expandErrorMsg ? 
+                                        <p className="error">{errorMsg}</p>
+                                    :null}
                                     <input required placeholder="First name" value={firstName} onChange={(e)=> setFirstName(e.target.value)} ></input>
                                     <input required placeholder="Last name" value={lastName} onChange={(e)=> setLastName(e.target.value)}></input>
                                     <label htmlFor="birthday">Birthday</label>
@@ -211,7 +226,7 @@ function Profile(props) {
                                     <label htmlFor="file">Change Profile Picture</label>
                                     <input id="file" type="file" onChange={(e)=>setSelectedFile(e.target.files[0])}></input>
                                 </form>
-                                <button onClick={handleUpdate}>Save</button>
+                                <button form="edit-profile" type="submit">Save</button>
                             </div>
                         </div>
                     : null}

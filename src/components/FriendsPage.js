@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import FriendCard from "./FriendCard";
 import { ReactComponent as SearchIcon} from '../icons/search.svg'
 
@@ -8,6 +9,8 @@ function FriendsPage(props) {
     const [users, setUsers] = useState([]);
     const [pageSelect, setPageSelect] = useState("All");
     const [search, setSearch] = useState("")
+
+    const navigate = useNavigate();
     
     async function getAllUsers() {
 
@@ -38,10 +41,12 @@ function FriendsPage(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
+                throw res;
             }
         } 
         catch (err) {
             console.log(err);
+            navigate("/404", { state: {err: "Internal server error"}});
         }
     }
 

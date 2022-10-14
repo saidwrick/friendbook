@@ -1,6 +1,7 @@
 html {
     min-height: 100%;
     min-width: 100%;
+    min-width: 320px;
     margin: 0;
 }
 body {
@@ -343,6 +344,8 @@ body {
     padding: 13px 13px 10px 13px;
     color: var(--dark-grey);
     box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-x: hidden;
 }
 
 .new-post .expanded {
@@ -1012,7 +1015,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    box-shadow: 0px 1px 2px 0px var(--drop-shadow);
+    box-shadow: 2px 4px 6px 2px var(--drop-shadow);
     padding: 20px;
     box-sizing: border-box;
 }
@@ -1022,21 +1025,33 @@ body {
     filter: brightness(95%);
 }
 
-.login-form>.success {
+.login-page .success,
+.login-page .error,
+.edit-mod-container .error {
     color: #0b9228;
     align-self: start;
     padding-bottom: 10px;
-    animation: shift 0.25s;
+    animation: shift 0.5s;
+}
+
+.login-page .error,
+.edit-mod-container .error{
+    color: red;
+    white-space: pre-line;
+}
+
+.login-page .error::before,
+.login-page .success::before,
+.edit-mod-container .error::before{
+    content: "* ";
 }
 
 @keyframes shift {
     from {
         opacity: 0;
-        transform: scaleY(0);
     }
     to {
         opacity: 1;
-        transform: scaleY(1);
     }
   }
 
@@ -1528,9 +1543,8 @@ body {
 }
 
 .edit-mod-container {
-    height: 450px;
+    min-height: 450px;
     min-width: 500px;
-    max-width: 500px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 1px 2px 0px var(--drop-shadow);
@@ -1539,7 +1553,6 @@ body {
     flex-direction: column;
     padding: 25px;
     box-sizing: border-box;
-    overflow-y: auto;
     gap: 20px;
 }
 
@@ -1621,6 +1634,7 @@ body {
     background-color: var(--main-blue);
     margin-top: 25px;
     height: 35px;
+    flex: none;
 }
 
 .edit-mod-container button:hover{
@@ -1751,8 +1765,8 @@ body {
         gap: 2px;
     }
 
-    .new-post{
-        flex-direction: column;
+    .new-post textarea{
+
     }
 
     .new-post-expanded{
