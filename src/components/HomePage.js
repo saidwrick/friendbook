@@ -6,14 +6,14 @@ import Post from "./Post";
 function Home(props) {
     
     const [posts, setPosts] = useState([]);
-    const [postLimit, setPostLimit] = useState(2);
-    const [limitedPosts, setLimitedPosts] = useState([]);
+    const [postLimit, setPostLimit] = useState(10);
 
+    const api = process.env.REACT_APP_API_URL
     const navigate = useNavigate();
 
     async function getPosts() {
         try {
-            let res = await fetch("/users/" + localStorage.userId + "/posts", {
+            let res = await fetch(api+"/users/" + localStorage.userId + "/posts", {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -28,7 +28,6 @@ function Home(props) {
                 console.log("success");
                 console.log(resJson);
                 setPosts(resJson);
-                setLimitedPosts(resJson.slice(0,postLimit));
             } 
             else {
                 console.log(res.status);

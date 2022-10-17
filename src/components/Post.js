@@ -19,6 +19,8 @@ function Post(props) {
     const [likesClick, setLikesClick] = useState(false);
     const [deleted, setDeleted] = useState(false);
 
+    const api = process.env.REACT_APP_API_URL
+
     function formatTime (date){
         const seconds = (Date.now() - new Date(date))/1000;
         const minutes = seconds/60
@@ -51,7 +53,7 @@ function Post(props) {
 
     async function handleLikeButton(){
         try {
-            let res = await fetch("/posts/" + props.post._id, {
+            let res = await fetch(api + "/posts/" + props.post._id, {
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json',
@@ -89,7 +91,7 @@ function Post(props) {
 
     async function getComments(){
         try {
-            let res = await fetch("/posts/" + props.post._id + "/comments", {
+            let res = await fetch(api + "/posts/" + props.post._id + "/comments", {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -119,7 +121,7 @@ function Post(props) {
                 return
             }
             try {
-                let res = await fetch("/posts/" + props.post._id + "/comments", {
+                let res = await fetch(api + "/posts/" + props.post._id + "/comments", {
                     method: "POST",
                     headers: {
                         'Content-type': 'application/json',
@@ -159,7 +161,7 @@ function Post(props) {
 
     async function getLikes() {
         try {
-            let res = await fetch("/posts/" + props.post._id + "/likes", {
+            let res = await fetch(api + "/posts/" + props.post._id + "/likes", {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -186,7 +188,7 @@ function Post(props) {
 
     async function deletePost() {
         try {
-            let res = await fetch("/posts/" + props.post._id, {
+            let res = await fetch(api + "/posts/" + props.post._id, {
                 method: "DELETE",
                 headers: {
                     'Content-type': 'application/json',

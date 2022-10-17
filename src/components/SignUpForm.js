@@ -13,12 +13,13 @@ function SignUpForm(props) {
     const [expandError, setExpandError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
+    const api = process.env.REACT_APP_API_URL
     const navigate = useNavigate();
 
     async function signUp(imgUrl) {
         setExpandError(false);
         try {
-            let res = await fetch("/signup", {
+            let res = await fetch(api + "/signup", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -53,14 +54,19 @@ function SignUpForm(props) {
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: err}});
+            if (err instanceof SyntaxError){
+                navigate("/404", { state: {err: "Internal server error"}});
+            }
+            else {
+                navigate("/404", { state: {err: err}});
+            } 
         }
     };
 
     async function uploadImg(){
         const data = new FormData();
         data.append("file", selectedFile);
-        data.append("upload_preset", "sibt32fq");
+        data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
         data.append("cloud_name", "dzflnyjtm")
 
         try {
@@ -74,7 +80,12 @@ function SignUpForm(props) {
         }
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: err}});
+            if (err instanceof SyntaxError){
+                navigate("/404", { state: {err: "Internal server error"}});
+            }
+            else {
+                navigate("/404", { state: {err: err}});
+            } 
         }
     }
 

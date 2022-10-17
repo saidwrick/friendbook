@@ -18,6 +18,7 @@ function Profile(props) {
     const [errorMsg, setErrorMsg] = useState("");
     const [expandErrorMsg, setExpandErrorMsg] = useState(false);
     
+    const api = process.env.REACT_APP_API_URL
     const navigate = useNavigate();
 
     function getEditProfileData(){
@@ -28,7 +29,7 @@ function Profile(props) {
 
     async function getProfileData (){
         try {
-            let res = await fetch(`/users/${id}`, {
+            let res = await fetch(api + `/users/${id}`, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -96,7 +97,7 @@ function Profile(props) {
     async function uploadImg(){
         const data = new FormData();
         data.append("file", selectedFile);
-        data.append("upload_preset", "sibt32fq");
+        data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
         data.append("cloud_name", "dzflnyjtm")
 
         try {
@@ -128,7 +129,7 @@ function Profile(props) {
         }
 
         try {
-            let res = await fetch("/users/" + props.userInfo._id, {
+            let res = await fetch(api + "/users/" + props.userInfo._id, {
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json',

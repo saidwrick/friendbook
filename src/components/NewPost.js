@@ -5,10 +5,12 @@ function NewPost(props) {
     const [postContent, setPostContent] = useState("");
     const [expanded, setExpanded] = useState(false);
 
+    const api = process.env.REACT_APP_API_URL
+
     async function submitPost (e){
         e.preventDefault();
         try {
-            let res = await fetch("/users/" + localStorage.userId + "/posts", {
+            let res = await fetch(api + "/users/" + localStorage.userId + "/posts", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json',

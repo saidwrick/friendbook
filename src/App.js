@@ -9,12 +9,13 @@ import ErrorPage from "./components/ErrorPage"
 function App(props) {
 
     const [userInfo, setUserInfo] = useState([]);
+    const api = process.env.REACT_APP_API_URL
 
     const navigate = useNavigate();
 
     const getUserInfo = async function() {
         try {
-            let res = await fetch(`/users/${localStorage.userId}`, {
+            let res = await fetch(api + `/users/${localStorage.userId}`, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -45,11 +46,17 @@ function App(props) {
     useEffect(() => {
 
         if (!localStorage.authToken) {
-            window.location.href="/login"
+            navigate("/login");
         }
-        getUserInfo();
+        else {
+            getUserInfo();
+        }
 
     }, [])
+
+    if (!localStorage.authToken){
+        return null;
+    }
 
     return (
         <div className="App">

@@ -11,6 +11,7 @@ function LoginForm(props) {
     const [expandError, setExpandError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
+    const api = process.env.REACT_APP_API_URL
     const navigate = useNavigate();
 
     function signUpSuccess() {
@@ -27,7 +28,7 @@ function LoginForm(props) {
         e.preventDefault();
         setExpandError(false);
         try {
-            let res = await fetch("/login", {
+            let res = await fetch(api + "/login", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -39,7 +40,7 @@ function LoginForm(props) {
                     }
                 ),
             });
-            
+            console.log(res)
             let resJson = await res.json();
             
             if (res.status === 200) {
@@ -60,14 +61,19 @@ function LoginForm(props) {
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: err}});
+            if (err instanceof SyntaxError){
+                navigate("/404", { state: {err: "Internal server error"}});
+            }
+            else {
+                navigate("/404", { state: {err: err}});
+            } 
         }
     }
 
     async function demoLogin(e) {
         e.preventDefault();
         try {
-            let res = await fetch("/login", {
+            let res = await fetch(api + "/login", {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -96,7 +102,12 @@ function LoginForm(props) {
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: err}});
+            if (err instanceof SyntaxError){
+                navigate("/404", { state: {err: "Internal server error"}});
+            }
+            else {
+                navigate("/404", { state: {err: err}});
+            } 
         }
     }
 

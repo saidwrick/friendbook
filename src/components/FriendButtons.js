@@ -6,10 +6,12 @@ function FriendButtons(props) {
 
     const [expandButton, setExpandButton] = useState(false);
 
+    const api = process.env.REACT_APP_API_URL
+
     async function handleButtonClick(e, action) {
         e.preventDefault();
         try {
-            let res = await fetch("/users/" + props.friendId + "/friend-actions", {
+            let res = await fetch(api + "/users/" + props.friendId + "/friend-actions", {
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json',

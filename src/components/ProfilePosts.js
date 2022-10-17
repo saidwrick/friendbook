@@ -11,9 +11,11 @@ function ProfilePosts(props) {
     const {id} = useParams();
     const [posts, setPosts] = useState([]);
 
+    const api = process.env.REACT_APP_API_URL
+
     async function getProfilePosts (){
         try {
-            let res = await fetch(`/users/${id}/posts`, {
+            let res = await fetch(api + `/users/${id}/posts`, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',

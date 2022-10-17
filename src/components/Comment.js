@@ -13,6 +13,8 @@ function Comment(props) {
     const [likesClick, setLikesClick] = useState(false);
     const [deleted, setDeleted] = useState(false);
 
+    const api = process.env.REACT_APP_API_URL
+
     function formatTime (date){
         const seconds = (Date.now() - new Date(date))/1000;
         const minutes = seconds/60
@@ -45,7 +47,7 @@ function Comment(props) {
 
     async function handleLikeButton(){
         try {
-            let res = await fetch("/comments/" + props.comment._id, {
+            let res = await fetch(api + "/comments/" + props.comment._id, {
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json',
@@ -83,7 +85,7 @@ function Comment(props) {
 
     async function getLikes() {
         try {
-            let res = await fetch("/comments/" + props.comment._id + "/likes", {
+            let res = await fetch(api + "/comments/" + props.comment._id + "/likes", {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -110,7 +112,7 @@ function Comment(props) {
 
     async function deleteComment() {
         try {
-            let res = await fetch("/comments/" + props.comment._id, {
+            let res = await fetch(api + "/comments/" + props.comment._id, {
                 method: "DELETE",
                 headers: {
                     'Content-type': 'application/json',

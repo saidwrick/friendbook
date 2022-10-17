@@ -5,11 +5,12 @@ import { ReactComponent as SearchIcon} from '../icons/search.svg'
 
 function FriendsPage(props) {
 
-    const [cardLimit, setCardLimit] = useState(5);
+    const [cardLimit, setCardLimit] = useState(10);
     const [users, setUsers] = useState([]);
     const [pageSelect, setPageSelect] = useState("All");
     const [search, setSearch] = useState("")
 
+    const api = process.env.REACT_APP_API_URL
     const navigate = useNavigate();
     
     async function getAllUsers() {
@@ -21,7 +22,7 @@ function FriendsPage(props) {
         }
 
         try {
-            let res = await fetch("users" + query, {
+            let res = await fetch(api + "/users" + query, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -41,7 +42,7 @@ function FriendsPage(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
-                throw res;
+              //  throw res;
             }
         } 
         catch (err) {
@@ -59,7 +60,7 @@ function FriendsPage(props) {
         }
 
         try {
-            let res = await fetch("/users" + query, {
+            let res = await fetch(api + "/users" + query, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -95,7 +96,7 @@ function FriendsPage(props) {
         }
 
         try {
-            let res = await fetch("users" + query, {
+            let res = await fetch(api + "/users" + query, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json',
@@ -127,7 +128,7 @@ function FriendsPage(props) {
     }
 
     function populateUsers(){
-        setCardLimit(5);
+        setCardLimit(10);
         if (pageSelect == "All"){
             getAllUsers();
         }
@@ -152,7 +153,7 @@ function FriendsPage(props) {
     //auto search after delay
     useEffect(() => {
         const delayDebounceFn = setTimeout(async () => {
-            setCardLimit(5);
+            setCardLimit(10);
             if (pageSelect == "All"){
                 getAllUsers();
             }
