@@ -185,7 +185,11 @@ function Profile(props) {
         }
     }, [props.userInfo, id])
 
-    if (errorPage || !profileData) {
+    if (!profileData && !errorPage) {
+        return null;
+    }
+
+    if (errorPage) {
         return <ErrorPage err={errorMsg}></ErrorPage>
     }
 

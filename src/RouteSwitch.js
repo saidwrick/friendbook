@@ -43,7 +43,6 @@ const RouteSwitch = () => {
 
     useEffect(() => {
         queryApi();
-
     },[]);
 
     if (loading){
@@ -54,8 +53,6 @@ const RouteSwitch = () => {
             </div>
         )
     }
-
-            
 
     return (
         <BrowserRouter>
