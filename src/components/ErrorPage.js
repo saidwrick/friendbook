@@ -17,6 +17,11 @@ function ErrorPage(props) {
         }
     })
 
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
+        return () => document.body.style.overflow = null;
+    },[])
+
     return (
         <div className="error-page">
             <h1>Oops something went wrong :(</h1>

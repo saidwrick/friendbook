@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Navigate} from "react-router-dom";
 import SignUpForm from "./SignUpForm";
+import ErrorPage from "./ErrorPage";
 
 function LoginForm(props) {
 
@@ -10,9 +11,14 @@ function LoginForm(props) {
     const [password, setPassword] = useState("");
     const [expandError, setExpandError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
+    const [errorPage, setErrorPage] = useState(false);
 
     const api = process.env.REACT_APP_API_URL
-    const navigate = useNavigate();
+
+    function openErrorPage(msg = ""){
+        setErrorMsg(msg);
+        setErrorPage(true);
+    }
 
     function signUpSuccess() {
         setOpenSignUpForm(false);
@@ -62,10 +68,10 @@ function LoginForm(props) {
         catch (err) {
             console.log(err);
             if (err instanceof SyntaxError){
-                navigate("/404", { state: {err: "Internal server error"}});
+                openErrorPage("Internal server error");
             }
             else {
-                navigate("/404", { state: {err: err}});
+                openErrorPage(err);
             } 
         }
     }
@@ -103,10 +109,10 @@ function LoginForm(props) {
         catch (err) {
             console.log(err);
             if (err instanceof SyntaxError){
-                navigate("/404", { state: {err: "Internal server error"}});
+                openErrorPage("Internal server error");
             }
             else {
-                navigate("/404", { state: {err: err}});
+                openErrorPage(err);
             } 
         }
     }
@@ -114,6 +120,11 @@ function LoginForm(props) {
     if (localStorage.authToken) {
         return <Navigate to="/" replace />;
     }
+
+    if (errorPage) {
+        return <ErrorPage err={errorMsg}></ErrorPage>
+    }
+
     return (
         <div className="login-page">
             {OpenSignUpForm ? <SignUpForm toggle={toggleSignUpForm} signUpSuccess={signUpSuccess}></SignUpForm> : null}

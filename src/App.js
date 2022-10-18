@@ -9,9 +9,16 @@ import ErrorPage from "./components/ErrorPage"
 function App(props) {
 
     const [userInfo, setUserInfo] = useState([]);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [errorPage, setErrorPage] = useState(false);
     const api = process.env.REACT_APP_API_URL
 
     const navigate = useNavigate();
+
+    function openErrorPage(msg = ""){
+        setErrorMsg(msg);
+        setErrorPage(true);
+    }
 
     const getUserInfo = async function() {
         try {
@@ -39,7 +46,7 @@ function App(props) {
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: "Internal server error"}});
+            openErrorPage("Internal server error");
         }
     }
 
@@ -51,11 +58,14 @@ function App(props) {
         else {
             getUserInfo();
         }
-
     }, [])
 
     if (!localStorage.authToken){
         return null;
+    }
+
+    if (errorPage) {
+        return <ErrorPage err={errorMsg}></ErrorPage>
     }
 
     return (

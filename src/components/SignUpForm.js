@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as CloseIcon} from '../icons/close.svg'
-import {useNavigate} from "react-router-dom";
+import ErrorPage from "./ErrorPage";
 
 function SignUpForm(props) {
 
@@ -12,9 +12,14 @@ function SignUpForm(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [expandError, setExpandError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
+    const [errorPage, setErrorPage] = useState(false);
 
     const api = process.env.REACT_APP_API_URL
-    const navigate = useNavigate();
+
+    function openErrorPage(msg = null){
+        setErrorMsg(msg);
+        setErrorPage(true);
+    }
 
     async function signUp(imgUrl) {
         setExpandError(false);
@@ -55,10 +60,10 @@ function SignUpForm(props) {
         catch (err) {
             console.log(err);
             if (err instanceof SyntaxError){
-                navigate("/404", { state: {err: "Internal server error"}});
+                openErrorPage("Internal server error");
             }
             else {
-                navigate("/404", { state: {err: err}});
+                openErrorPage(err);
             } 
         }
     };
@@ -81,10 +86,10 @@ function SignUpForm(props) {
         catch (err) {
             console.log(err);
             if (err instanceof SyntaxError){
-                navigate("/404", { state: {err: "Internal server error"}});
+                openErrorPage("Internal server error");
             }
             else {
-                navigate("/404", { state: {err: err}});
+                openErrorPage(err);
             } 
         }
     }
@@ -99,6 +104,10 @@ function SignUpForm(props) {
         else {
             signUp();
         }
+    }
+
+    if (errorPage) {
+        return <ErrorPage err={errorMsg}></ErrorPage>
     }
     
     return (

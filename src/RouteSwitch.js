@@ -7,6 +7,8 @@ import jwtDecode from "jwt-decode";
 
 const RouteSwitch = () => {
 
+    const [loading, setLoading] = useState(true);
+
     const api = process.env.REACT_APP_API_URL
 
     // to wake up api on initial load (free service goes to sleep after inactivity)
@@ -24,19 +26,36 @@ const RouteSwitch = () => {
                     }
                 ),
             });
+            setLoading(false);
         }
         catch {
+            setLoading(false);
         }
     }
 
 //if token is expired or uId/token missing
     useEffect(() => {
-        queryApi();
         if (!(localStorage.userId && localStorage.authToken) || 
         Date.now() >= jwtDecode(localStorage.authToken).exp*1000){ 
             localStorage.clear();
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        queryApi();
+
+    },[]);
+
+    if (loading){
+        return (
+            <div className="loading">
+                <img src={require("./icons/loader.gif")}></img>
+                <h2>server is waking up, initial load may take a minute...</h2>
+            </div>
+        )
+    }
+
+            
 
     return (
         <BrowserRouter>

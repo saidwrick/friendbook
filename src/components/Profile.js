@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ProfilePosts from "./ProfilePosts";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import FriendButtons from "./FriendButtons";
 import { ReactComponent as CloseIcon} from '../icons/close.svg'
+import ErrorPage from "./ErrorPage";
 
 function Profile(props) {
 
@@ -17,9 +18,9 @@ function Profile(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [errorMsg, setErrorMsg] = useState("");
     const [expandErrorMsg, setExpandErrorMsg] = useState(false);
+    const [errorPage, setErrorPage] = useState(false);
     
     const api = process.env.REACT_APP_API_URL
-    const navigate = useNavigate();
 
     function getEditProfileData(){
         setFirstName(props.userInfo.firstName);
@@ -58,7 +59,7 @@ function Profile(props) {
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: err}});
+            openErrorPage(err);
         }
     }
 
@@ -169,6 +170,11 @@ function Profile(props) {
         }
     }
 
+    function openErrorPage(msg = ""){
+        setErrorMsg(msg);
+        setErrorPage(true);
+    }
+
     useEffect(() => {
         getProfileData();
     },[])
@@ -178,9 +184,9 @@ function Profile(props) {
             getEditProfileData();
         }
     }, [props.userInfo, id])
-    
-    if (!profileData){
-        return null;
+
+    if (errorPage || !profileData) {
+        return <ErrorPage err={errorMsg}></ErrorPage>
     }
 
     return (

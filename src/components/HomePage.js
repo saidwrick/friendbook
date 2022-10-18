@@ -2,14 +2,21 @@ import React, { useState, useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 import NewPost from "./NewPost";
 import Post from "./Post";
+import ErrorPage from "./ErrorPage";
 
 function Home(props) {
     
     const [posts, setPosts] = useState([]);
     const [postLimit, setPostLimit] = useState(10);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [errorPage, setErrorPage] = useState(false);
 
     const api = process.env.REACT_APP_API_URL
-    const navigate = useNavigate();
+
+    function openErrorPage(msg = null){
+        setErrorMsg(msg);
+        setErrorPage(true);
+    }
 
     async function getPosts() {
         try {
@@ -37,17 +44,22 @@ function Home(props) {
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: "Internal server error"}});
+            openErrorPage("Internal server error");
         }
     }
 
     function incrementPostLimit() {
         setPostLimit(postLimit + 5);
     }
+
     useEffect(() => {
         getPosts();
     }, [])
-
+    
+    if (errorPage) {
+        return <ErrorPage err={errorMsg}></ErrorPage>
+    }
+    
     return (
         <div className="home">
             <div className="post-container">

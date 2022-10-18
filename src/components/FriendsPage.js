@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import FriendCard from "./FriendCard";
 import { ReactComponent as SearchIcon} from '../icons/search.svg'
+import ErrorPage from "./ErrorPage"
 
 function FriendsPage(props) {
 
@@ -9,10 +9,16 @@ function FriendsPage(props) {
     const [users, setUsers] = useState([]);
     const [pageSelect, setPageSelect] = useState("All");
     const [search, setSearch] = useState("")
+    const [errorMsg, setErrorMsg] = useState("");
+    const [errorPage, setErrorPage] = useState(false);
 
     const api = process.env.REACT_APP_API_URL
-    const navigate = useNavigate();
-    
+
+    function openErrorPage(msg = ""){
+        setErrorMsg(msg);
+        setErrorPage(true);
+    }
+
     async function getAllUsers() {
 
         let query = ""
@@ -42,12 +48,12 @@ function FriendsPage(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
-              //  throw res;
+                throw res
             }
         } 
         catch (err) {
             console.log(err);
-            navigate("/404", { state: {err: "Internal server error"}});
+            openErrorPage("Internal server error");
         }
     }
 
@@ -80,10 +86,12 @@ function FriendsPage(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
+                throw res
             }
         } 
         catch (err) {
             console.log(err);
+            openErrorPage("Internal server error");
         }
     }
 
@@ -116,10 +124,12 @@ function FriendsPage(props) {
             else {
                 console.log(res.status);
                 console.log(resJson);
+                throw res
             }
         } 
         catch (err) {
             console.log(err);
+            openErrorPage("Internal server error");
         }
     }
 
@@ -147,9 +157,7 @@ function FriendsPage(props) {
     useEffect(() => {
         populateUsers();
     }, [pageSelect])
-
-
-
+    
     //auto search after delay
     useEffect(() => {
         const delayDebounceFn = setTimeout(async () => {
@@ -171,6 +179,10 @@ function FriendsPage(props) {
 
     if (!props.userInfo){
         return null;
+    }
+
+    if (errorPage) {
+        return <ErrorPage err={errorMsg}></ErrorPage>
     }
 
     return (
