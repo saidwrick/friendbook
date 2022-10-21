@@ -51,7 +51,6 @@ function App(props) {
     }
 
     useEffect(() => {
-
         if (!localStorage.authToken) {
             navigate("/login");
         }

@@ -42,6 +42,8 @@ body {
     font-weight: normal;
     font-size: 20px;
     color: rgb(139, 139, 139);
+    padding: 0px 25px;
+    text-align: center;
 }
 
 .loading img{
@@ -669,8 +671,8 @@ body {
     fill: var(--dark-grey);
 }
 
-.post button:hover,
-.post label:hover {
+.post-buttons button:hover,
+.post-buttons label:hover {
     background-color: rgb(238, 238, 238);
 }
 
@@ -1492,6 +1494,10 @@ body {
 
 .friend-button .expanded button{
     min-height: 30px;
+}
+
+.friend-button .expanded button:hover{
+    filter:brightness(95%);
 }
 
 .friend-button .requested-cancel,

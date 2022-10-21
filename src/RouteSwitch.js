@@ -14,18 +14,7 @@ const RouteSwitch = () => {
     // to wake up api on initial load (free service goes to sleep after inactivity)
     async function queryApi() {
         try {
-            let res = await fetch(api + "/login", {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(
-                    {
-                        email: "a",
-                        password: "a"
-                    }
-                ),
-            });
+            let res = await fetch(api)
             setLoading(false);
         }
         catch {
