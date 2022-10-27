@@ -9,8 +9,8 @@ function LikesMod(props) {
     }
 
     return (
-        <div className="likes-mod-bg" onClick={props.closeMod}>
-            <div className="likes-mod" onClick={e=>e.stopPropagation()}>
+        <div className="likes-mod-bg" onMouseDown={props.closeMod}>
+            <div className="likes-mod" onMouseDown={e=>e.stopPropagation()}>
                 <div className="likes-mod-header">
                     Likes
                     <button className="likes-mod-close" onClick={props.closeMod}><CloseIcon/></button>

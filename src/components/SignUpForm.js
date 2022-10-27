@@ -111,8 +111,8 @@ function SignUpForm(props) {
     }
     
     return (
-        <div className="sign-up-overlay" onClick={props.toggle}>
-            <div className="sign-up-container" onClick={e=>e.stopPropagation()}>
+        <div className="sign-up-overlay" onMouseDown={props.toggle}>
+            <div className="sign-up-container" onMouseDown={e=>e.stopPropagation()}>
                 <div className="sign-up-header">
                     Sign up
                     <button onClick={props.toggle}><CloseIcon/></button>

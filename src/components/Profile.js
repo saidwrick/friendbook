@@ -220,8 +220,8 @@ function Profile(props) {
                         <FriendButtons userInfo={props.userInfo} friendId={id}></FriendButtons>
                     }
                     {expandEdit ? 
-                        <div className="edit-mod-bg" onClick={toggleExpandEdit}>
-                            <div className="edit-mod-container" onClick={e=>e.stopPropagation()}>
+                        <div className="edit-mod-bg" onMouseDown={toggleExpandEdit}>
+                            <div className="edit-mod-container" onMouseDown={e=>e.stopPropagation()}>
                                 <div className="edit-mod-header">
                                     <h1>Edit Profile</h1>
                                     <button className="edit-mod-close-button" onClick={toggleExpandEdit}><CloseIcon/></button>
