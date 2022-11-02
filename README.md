@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Friendbook
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Fullstack social media (Facebook) app that supports features such as creating accounts, profile pictures, adding & searching for friends, creating posts & comments, and likes.
 
-## Available Scripts
+[Live Demo](https://thefriendbook.netlify.app) (server might take a minute to start)
 
-In the project directory, you can run:
+[Front-End Repo](https://github.com/saidwrick/friendbook)
 
-### `npm start`
+[Back-End Repo](https://github.com/saidwrick/friendbook-back-end)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies
+- JavaScript
+- ReactJS
+- NodeJS
+- Express
+- Vanilla CSS
+- MongoDB
+- Cloudniary (for pictures)
+- Front-End Hosted on Netlify
+- Back-End Hosted on Render
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
+### Front-End
 
-### `npm test`
+- Accounts
+  - Create accounts with form validation (unique email required)
+  - Login 
+  - Authorized API access through Bearer Tokens
+  - Persisted logins through localstorage, or sign-out when token expires
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- User Profiles
+  - Upload profile pictures
+  - Expand profile picture on click
+  - Edit user information
+  - Show posts by user
+  - Protected user pages, posts viewable only when Friend Requests are accepted
+  
+- Discover Users
+  - Search all users
+  - Filter by Friends or incoming Friend Requests
+  - Friend "actions" (Add Friend, Accept Friend Request, Cancel Friend Request, Remove Friend)
 
-### `npm run build`
+- Posts and Comments
+  - View posts from your friends 
+  - Includes timestamp of when posts were created
+  - Create and Delete posts and comments
+  - Like/ Unlike posts and comments
+  - Preview users who Liked content on hover and show all users in a modal on click 
+  
+- General
+  - Dynamically generated content based on user account
+  - Responsive web and mobile design
+  - Graceful error handling (error messages within components when applicable, or entire 404/500 error pages)
+  - Functional nav-bar, including drop-down settings menu
+  - Pagination of results
+  
+### Back-End
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- REST API
+  - GET/ PUT/ POST/ DELETE actions for resources (accounts, posts, comments)
+  - Proper Error Code Responses and Messages
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Database
+  - Read & Write to MongoDB database using Mongoose ODM
+  - Data model schemas for different resources
+  - Virtual properties for computed results
+ 
+- Security
+  - Validates form content (sign-up info, posts, comments, etc.) before writing to database
+  - Generate JWT tokens on Login validation (PassportJS)
+  - Authorization required to access Routes
