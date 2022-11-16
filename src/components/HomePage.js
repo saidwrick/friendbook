@@ -67,7 +67,7 @@ function Home(props) {
                 {posts.slice(0,postLimit).map(e => <Post key={e._id} post={e} userInfo={props.userInfo}></Post>)}
                 {posts.length > postLimit ?
                     <button onClick={incrementPostLimit}>View More</button>
-                : null}
+                : <h3>There are no more posts to show right now.</h3>}
             </div>
         </div>
     );

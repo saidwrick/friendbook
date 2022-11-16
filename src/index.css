@@ -263,6 +263,11 @@ body {
     width: 100%;
 }
 
+.home h3{
+    color: var(--dark-grey);
+    align-self: center;
+}
+
 .post-container{
     display: flex;
     flex-direction: column;
