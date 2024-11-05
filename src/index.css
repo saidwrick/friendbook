@@ -41,9 +41,23 @@ body {
 .loading h2{
     font-weight: normal;
     font-size: 20px;
-    color: rgb(139, 139, 139);
+    color: rgb(80, 80, 80);
     padding: 0px 25px;
     text-align: center;
+    margin-bottom: 0px;
+}
+
+.loading h3{
+    font-weight: normal;
+    font-size: 16px;
+    color: rgb(80, 80, 80);
+    padding: 0px 25px;
+    text-align: center;
+    margin-top:0;
+}
+
+.loading a{
+    color: black;
 }
 
 .loading img{

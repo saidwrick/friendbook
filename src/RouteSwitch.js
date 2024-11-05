@@ -10,7 +10,7 @@ const RouteSwitch = () => {
 
     // loading screen only if server hasn't been used for 14 mins
     const [loading, setLoading] = useState(
-        Date.now() - localStorage.lastLog >= 840000 || !localStorage.lastLog ? true : false
+       Date.now() - localStorage.lastLog >= 840000 || !localStorage.lastLog ? true : false
     );
 
     const api = process.env.REACT_APP_API_URL
@@ -20,6 +20,7 @@ const RouteSwitch = () => {
         try {
             let res = await fetch(api)
             setLoading(false);
+            localStorage.lastLog = Date.now();
         }
         catch {
             setLoading(false);
@@ -38,7 +39,6 @@ const RouteSwitch = () => {
         if (loading){
             queryApi();
         }
-        localStorage.lastLog = Date.now();
     },[]);
 
     if (loading){
@@ -46,6 +46,7 @@ const RouteSwitch = () => {
             <div className="loading">
                 <img src={require("./icons/loader.gif")}></img>
                 <h2>server is waking up, initial load may take a minute...</h2>
+                <h3>if it's taking too long... you can check out one of my other projects here: <a href="http://storeify.netlify.app/">http://storeify.netlify.app/</a></h3>
             </div>
         )
     }
