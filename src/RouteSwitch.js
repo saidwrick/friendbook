@@ -23,7 +23,7 @@ const RouteSwitch = () => {
             localStorage.lastLog = Date.now();
         }
         catch {
-            setLoading(false);
+            alert("error, try again")
         }
     }
 
