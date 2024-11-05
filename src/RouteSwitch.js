@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import App from "./App";
 import LoginForm from "./components/LoginForm";
 import ErrorPage from "./components/ErrorPage";
+import Health from "./components/Health";
 import jwtDecode from "jwt-decode";
 
 const RouteSwitch = () => {
@@ -54,6 +55,7 @@ const RouteSwitch = () => {
                 <Routes>
                     <Route path="/404" element={<ErrorPage />} />
                     <Route path="/login" element={<LoginForm />} />
+                    <Route path="/health" element={<Health />} />
                     <Route path="/*" element={<App />} />
                 </Routes>
         </BrowserRouter>
